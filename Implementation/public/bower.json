@@ -1,0 +1,20 @@
+{
+  "name": "LMS",
+  "authors": [
+    "andrian octavianus <andrian.octo@gmail.com>"
+  ],
+  "description": "this is bower component for Learning Management System Udinus",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.6"
+  }
+}
