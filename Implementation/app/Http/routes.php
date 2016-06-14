@@ -15,4 +15,5 @@ Route::auth();
 
 Route::get('/', 'HomeController@index')->middleware(['auth']);
 Route::get('/admin', 'Admin\AdminController@index')->middleware(['auth']);;
-Route::get('/admin/user', 'Admin\UserController@index')->middleware(['auth']);;
+Route::get('/admin/user', 'Admin\UserController@index')->middleware(['auth']);
+Route::post('/admin/user/create', 'Admin\UserController@createUser');

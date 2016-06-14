@@ -1,12 +1,12 @@
 @extends('layouts.app')
-<link href="../assets/pages/css/login.min.css" rel="stylesheet" type="text/css" />
+<link href="../template/assets/pages/css/login.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body class=" login">
 @section('content')
 <!-- BEGIN LOGO -->
 <div class="logo">
     <a href="index.html">
-        <img src="../assets/pages/img/logo-big.png" alt="" /> </a>
+        <img src="../template/assets/pages/img/logo-big.png" alt="" /> </a>
 </div>
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->

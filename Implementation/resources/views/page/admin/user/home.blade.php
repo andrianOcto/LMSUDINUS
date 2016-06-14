@@ -2,9 +2,11 @@
 <!-- load angular stuff -->
 <script src="{{ URL::asset('bower_components/angular/angular.min.js')}}" type="text/javascript"></script>
 
+<!-- Controller javascript -->
+<script src="{{ URL::asset('js/admin/user/app.js')}}" type="text/javascript"></script>
 
 </head>
-<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo" ng-app="LMS" ng-controller="UserController">
 @section('content')
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
@@ -415,7 +417,7 @@
             <!-- BEGIN PAGE BREADCRUMB -->
             <ul class="page-breadcrumb breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{ url('/admin') }}">Home</a>
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
@@ -1087,67 +1089,82 @@
             </div>
             <div class="modal-body">
                 <!-- BEGIN FORM-->
-                <form action="#" class="form-horizontal">
+                <form name="userForm"  ng-submit="submitForm(userForm.$valid)" novalidate class="form-horizontal">
                     <div class="form-body">
-                        <div class="form-group">
+                      {{ csrf_field() }}
+                      <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && submitted}">
+                          <label class="col-md-3 control-label">Name *</label>
+                          <div class="col-md-8">
+                              <input type="text" class="form-control" ng-model="name" id="name" name="name" placeholder="Username" ng-required="true">
+                              <p ng-show="userForm.name.$invalid && submitted" class="help-block">Name is required.</p>
+                          </div>
+                      </div>
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && submitted}">
                             <label class="col-md-3 control-label">Username</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" placeholder="Username">
+                                <input type="text" class="form-control" ng-model="username" id="username" name="username" placeholder="Username" ng-required="true">
+                                <p ng-show="userForm.username.$invalid && submitted" class="help-block">Username is required.</p>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && submitted}">
                             <label class="col-md-3 control-label">Password</label>
                             <div class="col-md-8">
-                                <div class="input-group">
-                                    <input type="password" class="form-control" placeholder="Password">
+                                <div class="input-group" >
+                                    <input type="password" class="form-control" ng-model="password" id="password" name="password" ng-required="true" placeholder="Password">
                                     <span class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </span>
+
                                 </div>
+                                <p ng-show="userForm.password.$invalid && submitted" class="help-block">Password is required.</p>
+
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && submitted}">
                             <label class="col-md-3 control-label">Email</label>
                             <div class="col-md-8">
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                    <input type="email" class="form-control" placeholder="Email Address"> </div>
+                                    <input type="email" class="form-control" ng-model="email" id="email" name="email" ng-required="true" placeholder="Email Address">
+
+                                  </div>
+                                  <p ng-show="userForm.email.$invalid && submitted" class="help-block">Enter a valid email</p>
+
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.address.$invalid && submitted}">
                             <label class="col-md-3 control-label">Address</label>
                             <div class="col-md-8">
-                                <textarea class="form-control" rows="3" placeholder="Address"></textarea>
+                                <textarea class="form-control" rows="3" ng-model="address" id="address" name="address" placeholder="Address" ng-required="true"></textarea>
+                                <p ng-show="userForm.address.$invalid && submitted" class="help-block">Address is required.</p>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.phone.$invalid && submitted}">
+                            <label class="col-md-3 control-label">Phone</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="phone" id="phone" name="phone" placeholder="Username" ng-required="true">
+                                <p ng-show="userForm.phone.$invalid && submitted" class="help-block">Phone is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.role.$invalid && submitted }">
                             <label class="col-md-3 control-label">Role</label>
                             <div class="col-md-8">
                               <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                  <label ng-click="changeRole('admin')" class="btn btn-transparent blue btn-outline btn-sm active">
+                                      <input type="radio" class="toggle" required ng-change="change()" ng-model="role" value="admin" id="role" checked name="role">Admin</label>
+                                  <label ng-click="changeRole('lecturer')" class="btn btn-transparent blue btn-outline btn-sm">
+                                      <input type="radio"  class="toggle" required ng-change="change()" ng-model="role" value="lecturer" id="role" name="role">Lecturer</label>
                                   <label class="btn btn-transparent blue btn-outline btn-sm">
-                                      <input type="radio" name="options" class="toggle" id="option1">Admin</label>
-                                  <label class="btn btn-transparent blue btn-outline btn-sm">
-                                      <input type="radio" name="options" class="toggle" id="option2">Lecturer</label>
-                                  <label class="btn btn-transparent blue btn-outline btn-sm">
-                                      <input type="radio" name="options" class="toggle" id="option3">Student</label>
+                                      <input type="radio" ng-click="changeRole('student')" class="toggle" required ng-change="change()" ng-model="role" value="student" id="role" name="role">Student</label>
                               </div>
+                              <p ng-show="userForm.role.$invalid && submitted" class="help-block">Role is required.</p>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Input With Spinner</label>
-                            <div class="col-md-8">
-                                <input type="password" class="form-control spinner" placeholder="Password"> </div>
-                        </div>
-                        <div class="form-group last">
-                            <label class="col-md-3 control-label">Static Control</label>
-                            <div class="col-md-8">
-                                <p class="form-control-static"> email@example.com </p>
-                            </div>
-                        </div>
+
                     </div>
-                </form>
+
                 <!-- END FORM-->
 
 
@@ -1155,8 +1172,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="button" class="btn green">Save changes</button>
+                <button type="submit" class="btn green">Save changes</button>
             </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
