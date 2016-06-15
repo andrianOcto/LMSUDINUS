@@ -439,75 +439,52 @@
                         <span class="caption-subject font-red sbold uppercase">List User</span>
                     </div>
                     <div style="float:right;">
-                      <a href="#addUserModal" data-toggle="modal" class="btn blue btn-md btn-outline sbold uppercase">
+                      <a href="#addUserModal" data-toggle="modal" ng-click="resetForm()" class="btn blue btn-md btn-outline sbold uppercase">
                               <i class="fa fa-plus-square"></i> Add New User </a>
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <div class="table-scrollable">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th> # </th>
-                                    <th> Name </th>
-                                    <th> Email </th>
-                                    <th> Address </th>
-                                    <th> Phone </th>
-                                    <th> Action </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td> 1 </td>
-                                    <td> Name </td>
-                                    <td> Email </td>
-                                    <td> Address </td>
-                                    <td> Phone </td>
-                                    <td>
-                                      <a href="javascript:;" class="btn dark btn-sm btn-outline sbold uppercase">
-                                          <i class="fa fa-share"></i> View </a>
-                                      <a href="javascript:;" class="btn dark btn-sm btn-outline sbold uppercase">
-                                              <i class="fa fa-edit"></i> Edit </a>
-                                      <a href="javascript:;" class="btn dark btn-sm btn-outline sbold uppercase">
-                                              <i class="fa fa-remove"></i> Remove </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> 2 </td>
-                                    <td> Name </td>
-                                    <td> Email </td>
-                                    <td> Address </td>
-                                    <td> Phone </td>
-                                    <td>
-                                      <a href="javascript:;" class="btn dark btn-sm btn-outline sbold uppercase">
-                                          <i class="fa fa-share"></i> View </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> 3 </td>
-                                    <td> Name </td>
-                                    <td> Email </td>
-                                    <td> Address </td>
-                                    <td> Phone </td>
-                                    <td>
-                                      <a href="javascript:;" class="btn dark btn-sm btn-outline sbold uppercase">
-                                          <i class="fa fa-share"></i> View </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> 4 </td>
-                                    <td> Name </td>
-                                    <td> Email </td>
-                                    <td> Address </td>
-                                    <td> Phone </td>
-                                    <td>
-                                      <a href="javascript:;" class="btn dark btn-sm btn-outline sbold uppercase">
-                                          <i class="fa fa-share"></i> View </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                  <div class="table-scrollable">
+                      <table class="table table-striped table-bordered table-hover">
+                          <thead>
+                              <tr>
+                                  <th scope="col"> * </th>
+                                  <th scope="col"> Username </th>
+                                  <th scope="col"> Name </th>
+                                  <th scope="col"> Email </th>
+                                  <th scope="col"> Phone </th>
+                                  <th scope="col"> Role </th>
+                                  <th scope="col" > Action </th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <?php $indexTable = 1;?>
+                            @foreach ($users as $user)
+                              <tr>
+                                <td> {{$indexTable}} </td>
+                                <td> {{$user->username}} </td>
+                                <td> {{$user->name}} </td>
+                                <td> {{$user->email}} </td>
+                                <td> {{$user->phone}} </td>
+                                <td> {{$user->role}} </td>
+                                <td>
+                                  <div class="btn-group">
+
+                                  <a href="#addUserModal" data-toggle="modal" ng-click="resetForm();updateModal({{$user->id}},'{{$user->name}}','{{$user->username}}','{{$user->email}}','{{$user->address}}','{{$user->phone}}','{{$user->role}}')" class="btn dark btn-sm btn-outline sbold uppercase">
+                                          <i class="fa fa-edit"></i> Edit </a>
+
+                                  <a href="javascript:;" ng-click="deleteUser({{$user->id}})" class="btn dark btn-sm btn-outline sbold uppercase">
+                                          <i class="fa fa-remove"></i> Remove </a>
+                                  </div>
+                                </td>
+                              </tr>
+                          <?php $indexTable ++; ?>
+                          @endforeach
+                          </tbody>
+                      </table>
+                  </div>
+
+                    {!! $users->render() !!}
                 </div>
             </div>
 
@@ -1087,7 +1064,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Add New User</h4>
+                <h4 class="modal-title">@{{state}}</h4>
             </div>
             <div class="modal-body">
                 <!-- BEGIN FORM-->
@@ -1184,6 +1161,8 @@
 </div>
 
 <!-- END of Modal add User -->
+
+<!-- Edit User -->
 
 <!-- BEGIN FOOTER -->
 <div class="page-footer">

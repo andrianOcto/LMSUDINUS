@@ -8,6 +8,8 @@ function UserController($scope,$http){
   $scope.usernameDuplicate = false;
   $scope.role="admin";
   $scope.submitted  = false;
+  $scope.state = "Add New User";
+  var id=0;
 
   //set toastr option
   toastr.options = {
@@ -29,6 +31,20 @@ function UserController($scope,$http){
     $scope.role = value;
   }
 
+  $scope.updateModal = function(idUpdate,name,username,email,address,phone,role){
+    $scope.resetForm();
+
+    $scope.state  = "Update User "+username;
+    id  = idUpdate;
+    $scope.name = name;
+    $scope.username = username;
+    $scope.email = email;
+    $scope.address = address;
+    $scope.phone = phone;
+    $scope.role = role;
+
+  }
+
   $scope.resetForm = function(){
     $scope.username =null;
     $scope.password =null;
@@ -48,53 +64,116 @@ function UserController($scope,$http){
     // check to make sure the form is completely valid
     if (isValid) {
 
-      //crate data body parameter
-      var data  = $.param({
-        username:$scope.username,
-        password:$scope.password,
-        name:$scope.name,
-        email:$scope.email,
-        address:$scope.address,
-        phone:$scope.phone,
-        role:$scope.role});
-
-      $scope.errMessageStat= false;
-      errMessageStat  = false;
-
-        //send request to server
-        $http.post('/admin/user/create',data,
+        if($scope.state == "Add New User")
         {
-          headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
-        })
-        .then(function(response) {
+          //crate data body parameter
+          var data  = $.param({
+            username:$scope.username,
+            password:$scope.password,
+            name:$scope.name,
+            email:$scope.email,
+            address:$scope.address,
+            phone:$scope.phone,
+            role:$scope.role});
 
-            //First function handles success
-            var JSONMessage = JSON.parse(JSON.stringify(response.data));
-            //if success add user
-            if(JSONMessage["response"] == "OK"){
-              toastr["success"](JSONMessage["message"], "Notifications");
-              $scope.resetForm();
-            }
-            else{
-              //if fail to add user
-              toastr["error"](JSONMessage["message"], "Failed add user");
-              if(JSONMessage["errorType"]=="username"){
-                $scope.usernameDuplicate = true;
+          //send request to server
+          $http.post('/admin/user/create',data,
+          {
+            headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+          })
+          .then(function(response) {
+
+              //First function handles success
+              var JSONMessage = JSON.parse(JSON.stringify(response.data));
+              //if success add user
+              if(JSONMessage["response"] == "OK"){
+                toastr["success"](JSONMessage["message"], "Notifications");
+                $scope.resetForm();
               }
-              else if(JSONMessage["errorType"]=="email"){
-                $scope.emailDuplicate = true;
+              else{
+                //if fail to add user
+                toastr["error"](JSONMessage["message"], "Failed add user");
+                if(JSONMessage["errorType"]=="username"){
+                  $scope.usernameDuplicate = true;
+                }
+                else if(JSONMessage["errorType"]=="email"){
+                  $scope.emailDuplicate = true;
+                }
               }
-            }
-        }, function(response) {
-            //Second function handles error
-            var JSONMessage = JSON.parse(JSON.stringify(response.data));
+          }, function(response) {
+              //Second function handles error
+              var JSONMessage = JSON.parse(JSON.stringify(response.data));
 
-            $scope.errMessageStat = true;
-            $scope.errMessage     = JSONMessage.message;
-            toastr["error"]("Kesalahan Server","Failed add user");
-        });
+              $scope.errMessageStat = true;
+              $scope.errMessage     = JSONMessage.message;
+              toastr["error"]("Kesalahan Server","Failed add user");
+          });
+        }
+        else{
 
+          //crate data body parameter
+          var data  = $.param({
+            idUser:id,
+            username:$scope.username,
+            password:$scope.password,
+            name:$scope.name,
+            email:$scope.email,
+            address:$scope.address,
+            phone:$scope.phone,
+            role:$scope.role});
+
+          //send request to server
+          $http.post('/admin/user/update',data,
+          {
+            headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+          })
+          .then(function(response) {
+
+              //First function handles success
+              var JSONMessage = JSON.parse(JSON.stringify(response.data));
+              //if success add user
+              if(JSONMessage["response"] == "OK"){
+                toastr["success"](JSONMessage["message"], "Notifications");
+                $scope.resetForm();
+              }
+              else{
+                //if fail to add user
+                toastr["error"](JSONMessage["message"], "Failed add user");
+                if(JSONMessage["errorType"]=="username"){
+                  $scope.usernameDuplicate = true;
+                }
+                else if(JSONMessage["errorType"]=="email"){
+                  $scope.emailDuplicate = true;
+                }
+              }
+          }, function(response) {
+              //Second function handles error
+              var JSONMessage = JSON.parse(JSON.stringify(response.data));
+
+              $scope.errMessageStat = true;
+              $scope.errMessage     = JSONMessage.message;
+              toastr["error"]("Kesalahan Server","Failed add user");
+          });
+        }
     }
   };
 
+  $scope.deleteUser = function(id){
+    //crate data body parameter
+    var data  = $.param({
+      idUser:id});
+    $http.post('/admin/user/delete',data,  {
+        headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+      }).
+    then(function(response){
+      //First function handles success
+      var JSONMessage = JSON.parse(JSON.stringify(response.data));
+      //if success add user
+      if(JSONMessage["response"] == "OK")
+        toastr["success"](JSONMessage["message"], "Notifications");
+    },function(response){
+      var JSONMessage = JSON.parse(JSON.stringify(response.data));
+      toastr["error"]("Kesalahan Server","Failed add user");
+    });
+  }
 }

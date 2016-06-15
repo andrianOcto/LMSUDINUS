@@ -17,3 +17,5 @@ Route::get('/', 'HomeController@index')->middleware(['auth']);
 Route::get('/admin', 'Admin\AdminController@index')->middleware(['auth']);;
 Route::get('/admin/user', 'Admin\UserController@index')->middleware(['auth']);
 Route::post('/admin/user/create', 'Admin\UserController@createUser');
+Route::post('/admin/user/update', 'Admin\UserController@updateUser');
+Route::post('/admin/user/delete', 'Admin\UserController@removeUser');
