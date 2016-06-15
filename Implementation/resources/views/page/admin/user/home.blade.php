@@ -1,4 +1,6 @@
 @extends('layouts.app')
+
+<link href="../template/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
 <!-- load angular stuff -->
 <script src="{{ URL::asset('bower_components/angular/angular.min.js')}}" type="text/javascript"></script>
 
@@ -1152,11 +1154,11 @@
                             <label class="col-md-3 control-label">Role</label>
                             <div class="col-md-8">
                               <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                  <label ng-click="changeRole('admin')" class="btn btn-transparent blue btn-outline btn-sm active">
+                                  <label ng-click="changeRole('admin')" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'admin'}">
                                       <input type="radio" class="toggle" required ng-change="change()" ng-model="role" value="admin" id="role" checked name="role">Admin</label>
-                                  <label ng-click="changeRole('lecturer')" class="btn btn-transparent blue btn-outline btn-sm">
+                                  <label ng-click="changeRole('lecturer')" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'lecturer'}">
                                       <input type="radio"  class="toggle" required ng-change="change()" ng-model="role" value="lecturer" id="role" name="role">Lecturer</label>
-                                  <label class="btn btn-transparent blue btn-outline btn-sm">
+                                  <label class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'student'}">
                                       <input type="radio" ng-click="changeRole('student')" class="toggle" required ng-change="change()" ng-model="role" value="student" id="role" name="role">Student</label>
                               </div>
                               <p ng-show="userForm.role.$invalid && submitted" class="help-block">Role is required.</p>
@@ -1193,5 +1195,7 @@
     </div>
 </div>
 
+<script src="../template/assets/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
 
+<script src="../template/assets/pages/scripts/ui-toastr.min.js" type="text/javascript"></script>
 @endsection

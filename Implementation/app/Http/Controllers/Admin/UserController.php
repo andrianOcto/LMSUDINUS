@@ -26,6 +26,7 @@ class UserController extends Controller
       $message          = "Create user success.";
       $isError          = FALSE;
       $missingParams    = null;
+      $errorType        = "username";
 
       $username         = ($request->input('username') != null) ? $request->input('username'):null;
       $name             = ($request->input('name') != null) ? $request->input('name'):null;
@@ -67,10 +68,9 @@ class UserController extends Controller
 
         if(!$isError){
             try {
-
-            $count		= User::whereRaw("username = '$username'")->count();
-
-            if ($count == 0) {
+            $count		  = User::whereRaw("username = '$username'")->count();
+            $countEmail = User::whereRaw("email = '$email'")->count();
+            if ($count == 0 && $countEmail==0) {
               $user = new User;
 
               $user->username 	= $username;
@@ -84,10 +84,17 @@ class UserController extends Controller
 
               $user->save();
 
-            } else {
+            } else if($count != 0){
               $response 	= "FAILED";
               $statusCode = 200;
-              $message 	= "Someone already has that username.";
+              $errorType  = "username";
+              $message 	= "Duplicate username $username.";
+            }
+            else if($countEmail !=0){
+              $response 	= "FAILED";
+              $statusCode = 200;
+              $errorType  = "email";
+              $message 	= "Duplicate email $email.";
             }
 
             } catch (Exception $e) {
@@ -98,10 +105,11 @@ class UserController extends Controller
         }
 
         $returnData = array(
-            'response' => $response,
+            'response'  => $response,
             'status_code' => $statusCode,
-            'message' => $message,
-            'result' => $result
+            'message'   => $message,
+            'result'    => $result,
+            'errorType' => $errorType
             );
 
         return response()->json($returnData, $statusCode);

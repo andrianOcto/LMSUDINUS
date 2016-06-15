@@ -3,11 +3,44 @@ angular.module('LMS', []);
 angular.module('LMS').controller('UserController',UserController);
 
 function UserController($scope,$http){
+
+  $scope.emailDuplicate = false;
+  $scope.usernameDuplicate = false;
   $scope.role="admin";
+  $scope.submitted  = false;
+
+  //set toastr option
+  toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "positionClass": "toast-top-right",
+    "showDuration": "10000",
+    "hideDuration": "10000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+
+  //function to change radiobutton value
   $scope.changeRole = function(value){
     $scope.role = value;
   }
-  $scope.submitted  = false;
+
+  $scope.resetForm = function(){
+    $scope.username =null;
+    $scope.password =null;
+    $scope.name     =null;
+    $scope.email    =null;
+    $scope.address  =null;
+    $scope.phone    =null;
+    $scope.role     ="admin";
+    $scope.submitted= false;
+    $('#addUserModal').modal('hide');
+  }
+
   // function to submit the form after all validation has occurred
   $scope.submitForm = function(isValid) {
 
@@ -15,6 +48,7 @@ function UserController($scope,$http){
     // check to make sure the form is completely valid
     if (isValid) {
 
+      //crate data body parameter
       var data  = $.param({
         username:$scope.username,
         password:$scope.password,
@@ -27,7 +61,7 @@ function UserController($scope,$http){
       $scope.errMessageStat= false;
       errMessageStat  = false;
 
-
+        //send request to server
         $http.post('/admin/user/create',data,
         {
           headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
@@ -36,15 +70,28 @@ function UserController($scope,$http){
 
             //First function handles success
             var JSONMessage = JSON.parse(JSON.stringify(response.data));
-
+            //if success add user
+            if(JSONMessage["response"] == "OK"){
+              toastr["success"](JSONMessage["message"], "Notifications");
+              $scope.resetForm();
+            }
+            else{
+              //if fail to add user
+              toastr["error"](JSONMessage["message"], "Failed add user");
+              if(JSONMessage["errorType"]=="username"){
+                $scope.usernameDuplicate = true;
+              }
+              else if(JSONMessage["errorType"]=="email"){
+                $scope.emailDuplicate = true;
+              }
+            }
         }, function(response) {
-
             //Second function handles error
             var JSONMessage = JSON.parse(JSON.stringify(response.data));
 
             $scope.errMessageStat = true;
             $scope.errMessage     = JSONMessage.message;
-            onsole.log($scope.errMessage);
+            toastr["error"]("Kesalahan Server","Failed add user");
         });
 
     }
