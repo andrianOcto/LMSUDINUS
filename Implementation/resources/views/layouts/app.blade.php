@@ -34,6 +34,8 @@
       <script src="{{ URL::asset('template/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
   <!-- END HEAD -->
 
+
+    
     @yield('content')
 
     <script src="{{ URL::asset('template/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>

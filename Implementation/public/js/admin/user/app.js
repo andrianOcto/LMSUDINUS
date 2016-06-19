@@ -2,7 +2,24 @@ angular.module('LMS', []);
 
 angular.module('LMS').controller('UserController',UserController);
 
-function UserController($scope,$http){
+function UserController($scope,$http,$compile){
+
+  $scope.data = false;
+  $scope.action = function( nRow, aData, iDataIndex ) {
+  //  $scope.apply();
+        // Bold the grade for all 'A' grade browsers
+          var button  = '<div class="btn-group">'+
+              '<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions'+
+                '  <i class="fa fa-angle-down"></i></button>'+
+              '<ul class="dropdown-menu" role="menu">'+
+                  '<li><a href="#addUserModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["name"]+'\',\''+aData["username"]+'\',\''+aData["email"]+'\',\''+aData["address"]+'\',\''+aData["phone"]+'\',\''+aData["role"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
+                  '<li><a href="javascript:;" ng-click="(deleteUser('+aData["id"]+'))"><i class="icon-tag"></i> Delete </a></li>'+
+              '</ul></div>';
+
+            $('td:eq(6)', nRow).html($compile(button)($scope));
+
+      };
+
 
   $scope.emailDuplicate = false;
   $scope.usernameDuplicate = false;
@@ -32,6 +49,7 @@ function UserController($scope,$http){
   }
 
   $scope.updateModal = function(idUpdate,name,username,email,address,phone,role){
+    $scope.refreshTable();
     $scope.resetForm();
 
     $scope.state  = "Update User "+username;
@@ -46,6 +64,7 @@ function UserController($scope,$http){
   }
 
   $scope.resetForm = function(){
+    console.log("masuk Reset");
     $scope.username =null;
     $scope.password =null;
     $scope.name     =null;
@@ -158,7 +177,16 @@ function UserController($scope,$http){
     }
   };
 
+  $scope.refreshTable = function(){
+        if($scope.data == false)
+          $scope.data = true;
+        else $scope.data = false;
+  }
+
   $scope.deleteUser = function(id){
+
+    $scope.refreshTable();
+
     //crate data body parameter
     var data  = $.param({
       idUser:id});

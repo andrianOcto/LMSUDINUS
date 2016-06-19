@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
-<link href="../template/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
-<!-- load angular stuff -->
-<script src="{{ URL::asset('bower_components/angular/angular.min.js')}}" type="text/javascript"></script>
+<script src="../template/assets/global/scripts/jquery.min.js" type="text/javascript"></script>
 
-<!-- Controller javascript -->
-<script src="{{ URL::asset('js/admin/user/app.js')}}" type="text/javascript"></script>
+<link href="../template/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+
 
 </head>
 <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo" ng-app="LMS" ng-controller="UserController">
@@ -445,48 +443,27 @@
                 </div>
                 <div class="portlet-body">
                   <div class="table-scrollable">
-                      <table class="table table-striped table-bordered table-hover">
+                      <table class="table table-striped table-bordered table-hover" my-table action-def="action" aa-data="data">
                           <thead>
                               <tr>
-                                  <th scope="col"> * </th>
+                                  <th scope="col"> # </th>
                                   <th scope="col"> Username </th>
                                   <th scope="col"> Name </th>
                                   <th scope="col"> Email </th>
                                   <th scope="col"> Phone </th>
                                   <th scope="col"> Role </th>
-                                  <th scope="col" > Action </th>
+                                  <th scope="col"> Action </th>
                               </tr>
                           </thead>
                           <tbody>
-                            <?php $indexTable = 1;?>
-                            @foreach ($users as $user)
-                              <tr>
-                                <td> {{$indexTable}} </td>
-                                <td> {{$user->username}} </td>
-                                <td> {{$user->name}} </td>
-                                <td> {{$user->email}} </td>
-                                <td> {{$user->phone}} </td>
-                                <td> {{$user->role}} </td>
-                                <td>
-                                  <div class="btn-group">
 
-                                  <a href="#addUserModal" data-toggle="modal" ng-click="resetForm();updateModal({{$user->id}},'{{$user->name}}','{{$user->username}}','{{$user->email}}','{{$user->address}}','{{$user->phone}}','{{$user->role}}')" class="btn dark btn-sm btn-outline sbold uppercase">
-                                          <i class="fa fa-edit"></i> Edit </a>
-
-                                  <a href="javascript:;" ng-click="deleteUser({{$user->id}})" class="btn dark btn-sm btn-outline sbold uppercase">
-                                          <i class="fa fa-remove"></i> Remove </a>
-                                  </div>
-                                </td>
-                              </tr>
-                          <?php $indexTable ++; ?>
-                          @endforeach
                           </tbody>
                       </table>
                   </div>
 
-                    {!! $users->render() !!}
                 </div>
             </div>
+
 
             <!-- END PAGE BASE CONTENT -->
         </div>
@@ -1173,7 +1150,15 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
+<script src="../template/assets/global/scripts/datatable.min.js" type="text/javascript"></script>
+<script src="../template/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+<script src="../template/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+<!-- load angular stuff -->
+<script src="{{ URL::asset('bower_components/angular/angular.min.js')}}" type="text/javascript"></script>
 
+<!-- Controller javascript -->
+<script src="{{ URL::asset('js/admin/user/app.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('js/admin/user/dirDatatable.js')}}" type="text/javascript"></script>
 <script src="../template/assets/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
 
 <script src="../template/assets/pages/scripts/ui-toastr.min.js" type="text/javascript"></script>

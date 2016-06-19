@@ -1,5 +1,4 @@
 @extends('layouts.app')
-</head>
 <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
 @section('content')
 <!-- BEGIN HEADER -->

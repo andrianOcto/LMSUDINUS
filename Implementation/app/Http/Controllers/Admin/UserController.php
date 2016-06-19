@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -14,6 +15,11 @@ class UserController extends Controller
   {
     $users = User::paginate(15);
     return view('page/admin/user/home')->with('users', $users);;
+  }
+
+  public function readUser(Request $request){
+
+    return Datatables::of(User::query())->make(true);
   }
 
   public function createUser(Request $request)
