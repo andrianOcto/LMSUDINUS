@@ -4,36 +4,34 @@ angular.module('LMS').controller('UserController',UserController);
 
 function UserController($scope,$http,$compile){
 
-  $(".nav-link").on("click", function(){
-     $(this).parent().addClass( 'active' ).siblings().removeClass( 'active' );
-  });
-
-
   $scope.idDelete = -99;
   $scope.data = false;
-  $scope.action = function( nRow, aData, iDataIndex ) {
-
-  //  $scope.apply();
-        // Bold the grade for all 'A' grade browsers
-          var button  = '<div class="btn-group">'+
-              '<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions'+
-                '  <i class="fa fa-angle-down"></i></button>'+
-              '<ul class="dropdown-menu" role="menu">'+
-                  '<li><a href="#addUserModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["name"]+'\',\''+aData["username"]+'\',\''+aData["email"]+'\',\''+aData["address"]+'\',\''+aData["phone"]+'\',\''+aData["role"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
-                  '<li><a href="#deleteUserModal" data-toggle="modal" ng-click="(delete('+aData["id"]+'))"><i class="icon-tag"></i> Delete </a></li>'+
-              '</ul></div>';
-
-            $('td:eq(6)', nRow).html($compile(button)($scope));
-
-      };
-
-
   $scope.emailDuplicate = false;
   $scope.usernameDuplicate = false;
   $scope.role="admin";
   $scope.submitted  = false;
   $scope.state = "Add New User";
   var id=0;
+
+  //reset sidebar active state
+  $(".nav-link").on("click", function(){
+     $(this).parent().addClass( 'active' ).siblings().removeClass( 'active' );
+  });
+
+  //function to inject button into datatable
+  $scope.action = function( nRow, aData, iDataIndex ) {
+
+      var button  = '<div class="btn-group">'+
+          '<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions'+
+            '  <i class="fa fa-angle-down"></i></button>'+
+          '<ul class="dropdown-menu" role="menu">'+
+              '<li><a href="#addUserModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["name"]+'\',\''+aData["username"]+'\',\''+aData["email"]+'\',\''+aData["address"]+'\',\''+aData["phone"]+'\',\''+aData["role"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
+              '<li><a href="#deleteUserModal" data-toggle="modal" ng-click="(delete('+aData["id"]+'))"><i class="icon-tag"></i> Delete </a></li>'+
+          '</ul></div>';
+
+        $('td:eq(6)', nRow).html($compile(button)($scope));
+
+  };
 
   //set toastr option
   toastr.options = {
@@ -55,6 +53,7 @@ function UserController($scope,$http,$compile){
     $scope.role = value;
   }
 
+  //function to update modal value
   $scope.updateModal = function(idUpdate,name,username,email,address,phone,role){
     $scope.refreshTable();
     $scope.resetForm();
@@ -70,8 +69,8 @@ function UserController($scope,$http,$compile){
 
   }
 
+  //function to reset form in update modal
   $scope.resetForm = function(){
-    console.log("masuk Reset");
     $scope.username =null;
     $scope.password =null;
     $scope.name     =null;
@@ -83,11 +82,24 @@ function UserController($scope,$http,$compile){
     $('#addUserModal').modal('hide');
   }
 
+  //update id delete value
   $scope.delete = function(id){
     $scope.idDelete = id;
   }
+
+  //function to refreshTable
+  $scope.refreshTable = function(){
+        if($scope.data == false)
+          $scope.data = true;
+        else $scope.data = false;
+  }
+
   // function to submit the form after all validation has occurred
   $scope.submitForm = function(isValid) {
+
+    if($scope.password != $scope.confirmPass){
+      $scope.confirmPass.$invalid = false;
+    }
 
     $scope.submitted  = true;
     // check to make sure the form is completely valid
@@ -189,16 +201,10 @@ function UserController($scope,$http,$compile){
     }
   };
 
-  $scope.refreshTable = function(){
-        if($scope.data == false)
-          $scope.data = true;
-        else $scope.data = false;
-  }
-
+  //function delete user
   $scope.deleteUser = function(){
     $scope.refreshTable();
 
-    console.log("user");
     //crate data body parameter
     var data  = $.param({
       idUser:$scope.idDelete});

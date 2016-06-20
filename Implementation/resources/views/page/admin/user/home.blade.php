@@ -798,6 +798,20 @@
 
                             </div>
                         </div>
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.confirmPass.$invalid && submitted}">
+                            <label class="col-md-3 control-label">Confirm Password</label>
+                            <div class="col-md-8">
+                                <div class="input-group" >
+                                    <input type="password" class="form-control" ng-model="confirmPass" id="confirmPass" name="confirmPass" ng-required="true" placeholder="Password">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+
+                                </div>
+                                <p ng-show="userForm.confirmPass.$invalid && submitted" class="help-block">Password is required.</p>
+
+                            </div>
+                        </div>
                         <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && submitted}">
                             <label class="col-md-3 control-label">Email</label>
                             <div class="col-md-8">
@@ -831,11 +845,11 @@
                             <div class="col-md-8">
                               <div class="btn-group btn-group-devided" data-toggle="buttons">
                                   <label ng-click="changeRole('admin')" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'admin'}">
-                                      <input type="radio" class="toggle" required ng-change="change()" ng-model="role" value="admin" id="role" checked name="role">Admin</label>
+                                      <input type="radio" class="toggle" required ng-model="role" value="admin" id="role" checked name="role">Admin</label>
                                   <label ng-click="changeRole('lecturer')" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'lecturer'}">
-                                      <input type="radio"  class="toggle" required ng-change="change()" ng-model="role" value="lecturer" id="role" name="role">Lecturer</label>
-                                  <label class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'student'}">
-                                      <input type="radio" ng-click="changeRole('student')" class="toggle" required ng-change="change()" ng-model="role" value="student" id="role" name="role">Student</label>
+                                      <input type="radio"  class="toggle" required ng-model="role" value="lecturer" id="role" name="role">Lecturer</label>
+                                  <label class="btn btn-transparent blue btn-outline btn-sm" ng-click="changeRole('student')" ng-class="{ 'active' : role == 'student'}">
+                                      <input type="radio" class="toggle" required ng-model="role" value="student" id="role" name="role">Student</label>
                               </div>
                               <p ng-show="userForm.role.$invalid && submitted" class="help-block">Role is required.</p>
                             </div>

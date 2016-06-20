@@ -4,6 +4,13 @@ angular.module('LMS').controller('UserController',UserController);
 
 function UserController($scope,$http,$compile){
 
+  $scope.idDelete = -99;
+  $scope.data = false;
+  $scope.submitted  = false;
+  $scope.state = "Add New Course";
+  var id=0;
+
+  //set option datatable
   $scope.option = {
       "processing": true,
       "serverSide": true,
@@ -23,38 +30,30 @@ function UserController($scope,$http,$compile){
       ]
     };
 
+    //reset sidebar active state
   $(".nav-link").on("click", function(){
      $(this).parent().addClass( 'active' ).siblings().removeClass( 'active' );
   });
 
-
-  $scope.idDelete = -99;
-  $scope.data = false;
+  //function to inject button into datatable
   $scope.action = function( nRow, aData, iDataIndex ) {
 
-  //  $scope.apply();
-        // Bold the grade for all 'A' grade browsers
-          var button  = '<div class="btn-group">'+
-              '<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions'+
-                '  <i class="fa fa-angle-down"></i></button>'+
-              '<ul class="dropdown-menu" role="menu">'+
-                  '<li><a href="#addCourseModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["code"]+'\',\''+aData["name"]+'\',\''+aData["description"]+'\',\''+aData["credit"]+'\',\''+aData["status"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
-                  '<li><a href="#deleteCourseModal" data-toggle="modal" ng-click="delete('+aData["id"]+')"><i class="icon-tag"></i> Delete </a></li>'+
-              '</ul></div>';
+      var button  = '<div class="btn-group">'+
+          '<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions'+
+            '  <i class="fa fa-angle-down"></i></button>'+
+          '<ul class="dropdown-menu" role="menu">'+
+              '<li><a href="#addCourseModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["code"]+'\',\''+aData["name"]+'\',\''+aData["description"]+'\',\''+aData["credit"]+'\',\''+aData["status"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
+              '<li><a href="#deleteCourseModal" data-toggle="modal" ng-click="delete('+aData["id"]+')"><i class="icon-tag"></i> Delete </a></li>'+
+          '</ul></div>';
 
-              if(aData["status"]=="1")
-                $('td:eq(5)', nRow).html("<span class='label label-sm label-success'> Active </span>");
-              else
-                $('td:eq(5)', nRow).html("<span class='label label-sm label-default'> Deactive </span>");
+          if(aData["status"]=="1")
+            $('td:eq(5)', nRow).html("<span class='label label-sm label-success'> Active </span>");
+          else
+            $('td:eq(5)', nRow).html("<span class='label label-sm label-default'> Deactive </span>");
 
-            $('td:eq(6)', nRow).html($compile(button)($scope));
+        $('td:eq(6)', nRow).html($compile(button)($scope));
 
       };
-
-
-  $scope.submitted  = false;
-  $scope.state = "Add New Course";
-  var id=0;
 
   //set toastr option
   toastr.options = {
@@ -71,6 +70,7 @@ function UserController($scope,$http,$compile){
     "hideMethod": "fadeOut"
   }
 
+  //function to update modal
   $scope.updateModal = function(idUpdate,code,name,description,credit,status){
     $scope.resetForm();
 
@@ -83,6 +83,7 @@ function UserController($scope,$http,$compile){
     $scope.status = status;
   }
 
+  //function to reset form
   $scope.resetForm = function(){
     console.log("masuk Reset");
     $scope.code =null;
@@ -93,8 +94,16 @@ function UserController($scope,$http,$compile){
     $('#addCourseModal').modal('hide');
   }
 
+  //function to update delete id
   $scope.delete = function(id){
     $scope.idDelete = id;
+  }
+
+  //function to refresh datatable
+  $scope.refreshTable = function(){
+        if($scope.data == false)
+          $scope.data = true;
+        else $scope.data = false;
   }
 
   // function to submit the form after all validation has occurred
@@ -180,12 +189,9 @@ function UserController($scope,$http,$compile){
     }
   };
 
-  $scope.refreshTable = function(){
-        if($scope.data == false)
-          $scope.data = true;
-        else $scope.data = false;
-  }
 
+
+  //function to delete course
   $scope.deleteCourse = function(){
 
     $scope.refreshTable();
