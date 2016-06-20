@@ -37,11 +37,11 @@ function UserController($scope,$http,$compile){
               '<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions'+
                 '  <i class="fa fa-angle-down"></i></button>'+
               '<ul class="dropdown-menu" role="menu">'+
-                  '<li><a href="#addUserModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["code"]+'\',\''+aData["name"]+'\',\''+aData["description"]+'\',\''+aData["credit"]+'\',\''+aData["status"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
+                  '<li><a href="#addCourseModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["code"]+'\',\''+aData["name"]+'\',\''+aData["description"]+'\',\''+aData["credit"]+'\',\''+aData["status"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
                   '<li><a href="javascript:;" ng-click="(deleteUser('+aData["id"]+'))"><i class="icon-tag"></i> Delete </a></li>'+
               '</ul></div>';
 
-            $('td:eq(5)', nRow).html($compile(button)($scope));
+            $('td:eq(6)', nRow).html($compile(button)($scope));
 
       };
 
@@ -70,11 +70,11 @@ function UserController($scope,$http,$compile){
 
     $scope.state  = "Update Course "+name;
     id  = idUpdate;
-    $scope.code = name;
-    $scope.name = username;
-    $scope.description = email;
-    $scope.credit = address;
-    $scope.status = phone;
+    $scope.code = code;
+    $scope.name = name;
+    $scope.description = description;
+    $scope.credit = credit;
+    $scope.status = status;
   }
 
   $scope.resetForm = function(){
@@ -130,24 +130,21 @@ function UserController($scope,$http,$compile){
 
               $scope.errMessageStat = true;
               $scope.errMessage     = JSONMessage.message;
-              toastr["error"]("Kesalahan Server","Failed add user");
+              toastr["error"]("Kesalahan Server","Failed add course");
           });
         }
         else{
 
           //crate data body parameter
           var data  = $.param({
-            idUser:id,
-            username:$scope.username,
-            password:$scope.password,
+            idCourse:id,
+            code:$scope.code,
             name:$scope.name,
-            email:$scope.email,
-            address:$scope.address,
-            phone:$scope.phone,
-            role:$scope.role});
+            description:$scope.description,
+            credit:$scope.credit});
 
           //send request to server
-          $http.post('/admin/user/update',data,
+          $http.post('/admin/course/update',data,
           {
             headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
           })
@@ -161,23 +158,13 @@ function UserController($scope,$http,$compile){
                 $scope.resetForm();
                 $scope.refreshTable();
               }
-              else{
-                //if fail to add user
-                toastr["error"](JSONMessage["message"], "Failed add user");
-                if(JSONMessage["errorType"]=="username"){
-                  $scope.usernameDuplicate = true;
-                }
-                else if(JSONMessage["errorType"]=="email"){
-                  $scope.emailDuplicate = true;
-                }
-              }
           }, function(response) {
               //Second function handles error
               var JSONMessage = JSON.parse(JSON.stringify(response.data));
 
               $scope.errMessageStat = true;
               $scope.errMessage     = JSONMessage.message;
-              toastr["error"]("Kesalahan Server","Failed add user");
+              toastr["error"]("Kesalahan Server","Failed update course");
           });
         }
     }
@@ -195,8 +182,8 @@ function UserController($scope,$http,$compile){
 
     //crate data body parameter
     var data  = $.param({
-      idUser:id});
-    $http.post('/admin/user/delete',data,  {
+      idCourse:id});
+    $http.post('/admin/course/delete',data,  {
         headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
       }).
     then(function(response){
@@ -207,7 +194,7 @@ function UserController($scope,$http,$compile){
         toastr["success"](JSONMessage["message"], "Notifications");
     },function(response){
       var JSONMessage = JSON.parse(JSON.stringify(response.data));
-      toastr["error"]("Kesalahan Server","Failed add user");
+      toastr["error"]("Kesalahan Server","Failed delete course");
     });
   }
 }

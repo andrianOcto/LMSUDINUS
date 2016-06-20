@@ -29,3 +29,5 @@ Route::get('/admin/user/read', 'Admin\UserController@readUser')->middleware(['au
 Route::get('/admin/course', 'Admin\CourseController@index')->middleware(['auth']);
 Route::get('/admin/course/read', 'Admin\CourseController@readCourse')->middleware(['auth']);
 Route::post('/admin/course/create', 'Admin\CourseController@createCourse')->middleware(['auth']);
+Route::post('/admin/course/update', 'Admin\CourseController@updateCourse')->middleware(['auth']);
+Route::post('/admin/course/delete', 'Admin\CourseController@removeCourse')->middleware(['auth']);
