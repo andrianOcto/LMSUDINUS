@@ -122,7 +122,7 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span class="active">User Management</span>
+                    <span class="active">Course Management</span>
                 </li>
             </ul>
             <!-- END PAGE BREADCRUMB -->
@@ -135,24 +135,24 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="icon-user font-red"></i>
-                        <span class="caption-subject font-red sbold uppercase">List User</span>
+                        <span class="caption-subject font-red sbold uppercase">List Course</span>
                     </div>
                     <div style="float:right;">
-                      <a href="#addUserModal" data-toggle="modal" ng-click="resetForm()" class="btn blue btn-md btn-outline sbold uppercase">
-                              <i class="fa fa-plus-square"></i> Add New User </a>
+                      <a href="#addCourseModal" data-toggle="modal" ng-click="resetForm()" class="btn blue btn-md btn-outline sbold uppercase">
+                              <i class="fa fa-plus-square"></i> Add New Course </a>
                     </div>
                 </div>
                 <div class="portlet-body">
                   <div class="table-scrollable">
-                      <table class="table table-striped table-bordered table-hover" my-table action-def="action" aa-data="data">
+                      <table class="table table-striped table-bordered table-hover" my-table="option" action-def="action" aa-data="data">
                           <thead>
                               <tr>
                                   <th scope="col"> # </th>
-                                  <th scope="col"> Username </th>
+                                  <th scope="col"> Code </th>
                                   <th scope="col"> Name </th>
-                                  <th scope="col"> Email </th>
-                                  <th scope="col"> Phone </th>
-                                  <th scope="col"> Role </th>
+                                  <th scope="col"> Description </th>
+                                  <th scope="col"> Credit </th>
+                                  <th scope="col"> Status </th>
                                   <th scope="col"> Action </th>
                               </tr>
                           </thead>
@@ -736,7 +736,7 @@
 
 <!-- MODAL Add User -->
 
-<div class="modal fade draggable-modal" id="addUserModal" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade draggable-modal" id="addCourseModal" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -745,80 +745,38 @@
             </div>
             <div class="modal-body">
                 <!-- BEGIN FORM-->
-                <form name="userForm"  ng-submit="submitForm(userForm.$valid)" novalidate class="form-horizontal">
+                <form name="courseForm"  ng-submit="submitForm(courseForm.$valid)" novalidate class="form-horizontal">
                     <div class="form-body">
                       {{ csrf_field() }}
-                      <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && submitted}">
-                          <label class="col-md-3 control-label">Name *</label>
+                      <div class="form-group" ng-class="{ 'has-error' : courseForm.code.$invalid && submitted}">
+                          <label class="col-md-3 control-label">Code *</label>
                           <div class="col-md-8">
-                              <input type="text" class="form-control" ng-model="name" id="name" name="name" placeholder="Username" ng-required="true">
-                              <p ng-show="userForm.name.$invalid && submitted" class="help-block">Name is required.</p>
+                              <input type="text" class="form-control" ng-model="code" id="code" name="code" placeholder="Code" ng-required="true">
+                              <p ng-show="courseForm.code.$invalid && submitted" class="help-block">Code is required.</p>
                           </div>
                       </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && submitted}">
-                            <label class="col-md-3 control-label">Username</label>
+                        <div class="form-group" ng-class="{ 'has-error' : courseForm.name.$invalid && submitted}">
+                            <label class="col-md-3 control-label">Name</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" ng-model="username" id="username" name="username" placeholder="Username" ng-required="true">
-                                <p ng-show="userForm.username.$invalid && submitted" class="help-block">Username is required.</p>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && submitted}">
-                            <label class="col-md-3 control-label">Password</label>
-                            <div class="col-md-8">
-                                <div class="input-group" >
-                                    <input type="password" class="form-control" ng-model="password" id="password" name="password" ng-required="true" placeholder="Password">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-
-                                </div>
-                                <p ng-show="userForm.password.$invalid && submitted" class="help-block">Password is required.</p>
-
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && submitted}">
-                            <label class="col-md-3 control-label">Email</label>
-                            <div class="col-md-8">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                    <input type="email" class="form-control" ng-model="email" id="email" name="email" ng-required="true" placeholder="Email Address">
-
-                                  </div>
-                                  <p ng-show="userForm.email.$invalid && submitted" class="help-block">Enter a valid email</p>
-
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.address.$invalid && submitted}">
-                            <label class="col-md-3 control-label">Address</label>
-                            <div class="col-md-8">
-                                <textarea class="form-control" rows="3" ng-model="address" id="address" name="address" placeholder="Address" ng-required="true"></textarea>
-                                <p ng-show="userForm.address.$invalid && submitted" class="help-block">Address is required.</p>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.phone.$invalid && submitted}">
-                            <label class="col-md-3 control-label">Phone</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" ng-model="phone" id="phone" name="phone" placeholder="Username" ng-required="true">
-                                <p ng-show="userForm.phone.$invalid && submitted" class="help-block">Phone is required.</p>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.role.$invalid && submitted }">
-                            <label class="col-md-3 control-label">Role</label>
-                            <div class="col-md-8">
-                              <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                  <label ng-click="changeRole('admin')" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'admin'}">
-                                      <input type="radio" class="toggle" required ng-change="change()" ng-model="role" value="admin" id="role" checked name="role">Admin</label>
-                                  <label ng-click="changeRole('lecturer')" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'lecturer'}">
-                                      <input type="radio"  class="toggle" required ng-change="change()" ng-model="role" value="lecturer" id="role" name="role">Lecturer</label>
-                                  <label class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'student'}">
-                                      <input type="radio" ng-click="changeRole('student')" class="toggle" required ng-change="change()" ng-model="role" value="student" id="role" name="role">Student</label>
-                              </div>
-                              <p ng-show="userForm.role.$invalid && submitted" class="help-block">Role is required.</p>
+                                <input type="text" class="form-control" ng-model="name" id="name" name="name" placeholder="Course Name" ng-required="true">
+                                <p ng-show="courseForm.name.$invalid && submitted" class="help-block">Course name is required.</p>
                             </div>
                         </div>
 
+                        <div class="form-group" ng-class="{ 'has-error' : courseForm.description.$invalid && submitted}">
+                            <label class="col-md-3 control-label">Description</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control" rows="3" ng-model="description" id="description" name="description" placeholder="Description" ng-required="true"></textarea>
+                                <p ng-show="courseForm.description.$invalid && submitted" class="help-block">Description is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : courseForm.credit.$invalid && submitted}">
+                            <label class="col-md-3 control-label">Credit</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="credit" id="credit" name="credit" placeholder="Username" ng-required="true">
+                                <p ng-show="courseForm.credit.$invalid && submitted" class="help-block">Credit is required.</p>
+                            </div>
+                        </div>
                     </div>
 
                 <!-- END FORM-->
@@ -828,7 +786,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn green">Save changes</button>
+                <button type="submit" class="btn green">Submit</button>
             </div>
             </form>
         </div>
@@ -859,7 +817,7 @@
 <script src="../template/assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js" type="text/javascript"></script>
 
 <!-- Controller javascript -->
-<script src="{{ URL::asset('js/admin/user/app.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('js/admin/course/app.js')}}" type="text/javascript"></script>
 <script src="{{ URL::asset('js/admin/dirDatatable.js')}}" type="text/javascript"></script>
 <script src="../template/assets/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
 

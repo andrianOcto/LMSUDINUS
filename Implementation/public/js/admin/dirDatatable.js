@@ -53,11 +53,7 @@ angular.module('LMS').directive('myTable', function() {
 
       // watch for any changes to our data, rebuild the DataTable
         scope.$watch(attrs.aaData, function(value) {
-          console.log("watch");
-            var val = value || null;
-            if (val) {
                 dataTable.draw();
-            }
         });
     }
 

@@ -62,7 +62,20 @@
                             <span class="title">Export Student</span>
                         </a>
                     </li>
-
+                </ul>
+            </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-user"></i>
+                    <span class="title">Courses</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="{{ url('/admin/course') }}" class="nav-link ">
+                            <span class="title">Management Courses</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

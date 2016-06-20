@@ -4,9 +4,29 @@ angular.module('LMS').controller('UserController',UserController);
 
 function UserController($scope,$http,$compile){
 
+  $scope.option = {
+      "processing": true,
+      "serverSide": true,
+      "ajax": '/admin/course/read',
+      "dom" : "<'row'<'col-sm-6'l><'col-sm-3 pull-right'f>>" +
+"<'row'<'col-sm-12'tr>>" +
+"<'row'<'col-sm-5'i><'col-sm-7 pull-right'p>>",
+      "columns": [
+        { data: 'id', name: 'id',searchable: false,
+        orderable: false },
+        { data: 'code', name: 'code' },
+        { data: 'name', name: 'name' },
+        { data: 'description', name: 'description' },
+        { data: 'credit', name: 'credit' },
+        { data: 'status', name: 'status' },
+        { defaultContent: 'a', name: 'action',searchable:false }
+      ]
+    };
+
   $(".nav-link").on("click", function(){
      $(this).parent().addClass( 'active' ).siblings().removeClass( 'active' );
   });
+
 
   $scope.data = false;
   $scope.action = function( nRow, aData, iDataIndex ) {
@@ -17,20 +37,17 @@ function UserController($scope,$http,$compile){
               '<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions'+
                 '  <i class="fa fa-angle-down"></i></button>'+
               '<ul class="dropdown-menu" role="menu">'+
-                  '<li><a href="#addUserModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["name"]+'\',\''+aData["username"]+'\',\''+aData["email"]+'\',\''+aData["address"]+'\',\''+aData["phone"]+'\',\''+aData["role"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
+                  '<li><a href="#addUserModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["code"]+'\',\''+aData["name"]+'\',\''+aData["description"]+'\',\''+aData["credit"]+'\',\''+aData["status"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
                   '<li><a href="javascript:;" ng-click="(deleteUser('+aData["id"]+'))"><i class="icon-tag"></i> Delete </a></li>'+
               '</ul></div>';
 
-            $('td:eq(6)', nRow).html($compile(button)($scope));
+            $('td:eq(5)', nRow).html($compile(button)($scope));
 
       };
 
 
-  $scope.emailDuplicate = false;
-  $scope.usernameDuplicate = false;
-  $scope.role="admin";
   $scope.submitted  = false;
-  $scope.state = "Add New User";
+  $scope.state = "Add New Course";
   var id=0;
 
   //set toastr option
@@ -48,37 +65,26 @@ function UserController($scope,$http,$compile){
     "hideMethod": "fadeOut"
   }
 
-  //function to change radiobutton value
-  $scope.changeRole = function(value){
-    $scope.role = value;
-  }
-
-  $scope.updateModal = function(idUpdate,name,username,email,address,phone,role){
-    $scope.refreshTable();
+  $scope.updateModal = function(idUpdate,code,name,description,credit,status){
     $scope.resetForm();
 
-    $scope.state  = "Update User "+username;
+    $scope.state  = "Update Course "+name;
     id  = idUpdate;
-    $scope.name = name;
-    $scope.username = username;
-    $scope.email = email;
-    $scope.address = address;
-    $scope.phone = phone;
-    $scope.role = role;
-
+    $scope.code = name;
+    $scope.name = username;
+    $scope.description = email;
+    $scope.credit = address;
+    $scope.status = phone;
   }
 
   $scope.resetForm = function(){
     console.log("masuk Reset");
-    $scope.username =null;
-    $scope.password =null;
+    $scope.code =null;
     $scope.name     =null;
-    $scope.email    =null;
-    $scope.address  =null;
-    $scope.phone    =null;
-    $scope.role     ="admin";
+    $scope.description    =null;
+    $scope.credit  =null;
     $scope.submitted= false;
-    $('#addUserModal').modal('hide');
+    $('#addCourseModal').modal('hide');
   }
 
   // function to submit the form after all validation has occurred
@@ -88,20 +94,18 @@ function UserController($scope,$http,$compile){
     // check to make sure the form is completely valid
     if (isValid) {
 
-        if($scope.state == "Add New User")
+        if($scope.state == "Add New Course")
         {
           //crate data body parameter
           var data  = $.param({
-            username:$scope.username,
-            password:$scope.password,
+            code:$scope.code,
             name:$scope.name,
-            email:$scope.email,
-            address:$scope.address,
-            phone:$scope.phone,
-            role:$scope.role});
+            description:$scope.description,
+            credit:$scope.credit,
+            });
 
           //send request to server
-          $http.post('/admin/user/create',data,
+          $http.post('/admin/course/create',data,
           {
             headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
           })
@@ -118,12 +122,7 @@ function UserController($scope,$http,$compile){
               else{
                 //if fail to add user
                 toastr["error"](JSONMessage["message"], "Failed add user");
-                if(JSONMessage["errorType"]=="username"){
-                  $scope.usernameDuplicate = true;
-                }
-                else if(JSONMessage["errorType"]=="email"){
-                  $scope.emailDuplicate = true;
-                }
+
               }
           }, function(response) {
               //Second function handles error
@@ -159,8 +158,8 @@ function UserController($scope,$http,$compile){
               //if success add user
               if(JSONMessage["response"] == "OK"){
                 toastr["success"](JSONMessage["message"], "Notifications");
-                $scope.refreshTable();
                 $scope.resetForm();
+                $scope.refreshTable();
               }
               else{
                 //if fail to add user

@@ -14,9 +14,18 @@
 Route::auth();
 
 Route::get('/', 'HomeController@index')->middleware(['auth']);
+
+//admin
 Route::get('/admin', 'Admin\AdminController@index')->middleware(['auth']);;
+
+//user route
 Route::get('/admin/user', 'Admin\UserController@index')->middleware(['auth']);
-Route::post('/admin/user/create', 'Admin\UserController@createUser');
-Route::post('/admin/user/update', 'Admin\UserController@updateUser');
-Route::post('/admin/user/delete', 'Admin\UserController@removeUser');
-Route::get('/admin/user/read', 'Admin\UserController@readUser');
+Route::post('/admin/user/create', 'Admin\UserController@createUser')->middleware(['auth']);
+Route::post('/admin/user/update', 'Admin\UserController@updateUser')->middleware(['auth']);
+Route::post('/admin/user/delete', 'Admin\UserController@removeUser')->middleware(['auth']);
+Route::get('/admin/user/read', 'Admin\UserController@readUser')->middleware(['auth']);
+
+//course route
+Route::get('/admin/course', 'Admin\CourseController@index')->middleware(['auth']);
+Route::get('/admin/course/read', 'Admin\CourseController@readCourse')->middleware(['auth']);
+Route::post('/admin/course/create', 'Admin\CourseController@createCourse')->middleware(['auth']);
