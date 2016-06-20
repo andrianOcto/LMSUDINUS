@@ -30,14 +30,20 @@
       <!-- END THEME LAYOUT STYLES -->
       <link rel="shortcut icon" href="favicon.ico" />
 
-
       <script src="{{ URL::asset('template/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
   <!-- END HEAD -->
 
+    @yield('cssHeader')
 
-    
+    </head>
+    @yield('body')
+
+    @include('layouts.header')
+    <div class="page-container">
+    @include('layouts.sidebar')
+
     @yield('content')
-
+    </div>
     <script src="{{ URL::asset('template/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
     <script src="{{ URL::asset('template/assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
     <script src="{{ URL::asset('template/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js')}}" type="text/javascript"></script>

@@ -1,11 +1,16 @@
-angular.module('LMS', []);
+angular.module('LMS', ['ui.bootstrap','oc.lazyLoad']);
 
 angular.module('LMS').controller('UserController',UserController);
 
 function UserController($scope,$http,$compile){
 
+  $(".nav-link").on("click", function(){
+     $(this).parent().addClass( 'active' ).siblings().removeClass( 'active' );
+  });
+
   $scope.data = false;
   $scope.action = function( nRow, aData, iDataIndex ) {
+
   //  $scope.apply();
         // Bold the grade for all 'A' grade browsers
           var button  = '<div class="btn-group">'+

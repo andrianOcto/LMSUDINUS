@@ -53,7 +53,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        <a href="{{ url('admin/user') }}" class="nav-link ">
+                        <a href="{{ url('/admin/user') }}" class="nav-link ">
                             <span class="title">Management User</span>
                         </a>
                     </li>
