@@ -784,7 +784,7 @@
                                 <p ng-show="userForm.username.$invalid && submitted" class="help-block">Username is required.</p>
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && submitted}">
+                        <div class="form-group" ng-class="{ 'has-error' : (userForm.password.$invalid || userForm.confirmPass.$invalid) && submitted}">
                             <label class="col-md-3 control-label">Password</label>
                             <div class="col-md-8">
                                 <div class="input-group" >
@@ -808,7 +808,7 @@
                                     </span>
 
                                 </div>
-                                <p ng-show="userForm.confirmPass.$invalid && submitted" class="help-block">Password is required.</p>
+                                <p ng-show="userForm.confirmPass.$invalid && submitted" class="help-block">Password does not match.</p>
 
                             </div>
                         </div>

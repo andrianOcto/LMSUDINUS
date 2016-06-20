@@ -75,6 +75,7 @@ function UserController($scope,$http,$compile){
     $scope.password =null;
     $scope.name     =null;
     $scope.email    =null;
+    $scope.confirmPass    =null;
     $scope.address  =null;
     $scope.phone    =null;
     $scope.role     ="admin";
@@ -98,12 +99,16 @@ function UserController($scope,$http,$compile){
   $scope.submitForm = function(isValid) {
 
     if($scope.password != $scope.confirmPass){
-      $scope.confirmPass.$invalid = false;
+      console.log("masuk lah ya");
+      $scope.userForm.confirmPass.$invalid = true;
+    }
+    else {
+      $scope.userForm.confirmPass.$invalid = false;
     }
 
     $scope.submitted  = true;
     // check to make sure the form is completely valid
-    if (isValid) {
+    if (isValid && !$scope.userForm.confirmPass.$invalid) {
 
         if($scope.state == "Add New User")
         {
@@ -199,6 +204,7 @@ function UserController($scope,$http,$compile){
           });
         }
     }
+
   };
 
   //function delete user
