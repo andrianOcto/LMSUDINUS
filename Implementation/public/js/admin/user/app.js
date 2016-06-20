@@ -8,6 +8,8 @@ function UserController($scope,$http,$compile){
      $(this).parent().addClass( 'active' ).siblings().removeClass( 'active' );
   });
 
+
+  $scope.idDelete = -99;
   $scope.data = false;
   $scope.action = function( nRow, aData, iDataIndex ) {
 
@@ -18,7 +20,7 @@ function UserController($scope,$http,$compile){
                 '  <i class="fa fa-angle-down"></i></button>'+
               '<ul class="dropdown-menu" role="menu">'+
                   '<li><a href="#addUserModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["name"]+'\',\''+aData["username"]+'\',\''+aData["email"]+'\',\''+aData["address"]+'\',\''+aData["phone"]+'\',\''+aData["role"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
-                  '<li><a href="javascript:;" ng-click="(deleteUser('+aData["id"]+'))"><i class="icon-tag"></i> Delete </a></li>'+
+                  '<li><a href="#deleteUserModal" data-toggle="modal" ng-click="(delete('+aData["id"]+'))"><i class="icon-tag"></i> Delete </a></li>'+
               '</ul></div>';
 
             $('td:eq(6)', nRow).html($compile(button)($scope));
@@ -81,6 +83,9 @@ function UserController($scope,$http,$compile){
     $('#addUserModal').modal('hide');
   }
 
+  $scope.delete = function(id){
+    $scope.idDelete = id;
+  }
   // function to submit the form after all validation has occurred
   $scope.submitForm = function(isValid) {
 
@@ -190,13 +195,13 @@ function UserController($scope,$http,$compile){
         else $scope.data = false;
   }
 
-  $scope.deleteUser = function(id){
-
+  $scope.deleteUser = function(){
     $scope.refreshTable();
 
+    console.log("user");
     //crate data body parameter
     var data  = $.param({
-      idUser:id});
+      idUser:$scope.idDelete});
     $http.post('/admin/user/delete',data,  {
         headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
       }).
@@ -204,11 +209,17 @@ function UserController($scope,$http,$compile){
       //First function handles success
       var JSONMessage = JSON.parse(JSON.stringify(response.data));
       //if success add user
-      if(JSONMessage["response"] == "OK")
+      if(JSONMessage["response"] == "OK"){
         toastr["success"](JSONMessage["message"], "Notifications");
+        $('#deleteUserModal').modal('hide');
+        $scope.delete = -99;
+      }
     },function(response){
       var JSONMessage = JSON.parse(JSON.stringify(response.data));
       toastr["error"]("Kesalahan Server","Failed add user");
+        $scope.delete = -99;
     });
+  $scope.delete = -99;
   }
+
 }

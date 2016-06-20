@@ -18,7 +18,7 @@ function UserController($scope,$http,$compile){
         { data: 'name', name: 'name' },
         { data: 'description', name: 'description' },
         { data: 'credit', name: 'credit' },
-        { data: 'status', name: 'status' },
+        { data: 'status', name: 'status',searchable:false },
         { defaultContent: 'a', name: 'action',searchable:false }
       ]
     };
@@ -28,6 +28,7 @@ function UserController($scope,$http,$compile){
   });
 
 
+  $scope.idDelete = -99;
   $scope.data = false;
   $scope.action = function( nRow, aData, iDataIndex ) {
 
@@ -38,8 +39,13 @@ function UserController($scope,$http,$compile){
                 '  <i class="fa fa-angle-down"></i></button>'+
               '<ul class="dropdown-menu" role="menu">'+
                   '<li><a href="#addCourseModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["code"]+'\',\''+aData["name"]+'\',\''+aData["description"]+'\',\''+aData["credit"]+'\',\''+aData["status"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
-                  '<li><a href="javascript:;" ng-click="(deleteUser('+aData["id"]+'))"><i class="icon-tag"></i> Delete </a></li>'+
+                  '<li><a href="#deleteCourseModal" data-toggle="modal" ng-click="delete('+aData["id"]+')"><i class="icon-tag"></i> Delete </a></li>'+
               '</ul></div>';
+
+              if(aData["status"]=="1")
+                $('td:eq(5)', nRow).html("<span class='label label-sm label-success'> Active </span>");
+              else
+                $('td:eq(5)', nRow).html("<span class='label label-sm label-default'> Deactive </span>");
 
             $('td:eq(6)', nRow).html($compile(button)($scope));
 
@@ -85,6 +91,10 @@ function UserController($scope,$http,$compile){
     $scope.credit  =null;
     $scope.submitted= false;
     $('#addCourseModal').modal('hide');
+  }
+
+  $scope.delete = function(id){
+    $scope.idDelete = id;
   }
 
   // function to submit the form after all validation has occurred
@@ -176,13 +186,13 @@ function UserController($scope,$http,$compile){
         else $scope.data = false;
   }
 
-  $scope.deleteUser = function(id){
+  $scope.deleteCourse = function(){
 
     $scope.refreshTable();
 
     //crate data body parameter
     var data  = $.param({
-      idCourse:id});
+      idCourse:$scope.idDelete});
     $http.post('/admin/course/delete',data,  {
         headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
       }).
@@ -190,11 +200,17 @@ function UserController($scope,$http,$compile){
       //First function handles success
       var JSONMessage = JSON.parse(JSON.stringify(response.data));
       //if success add user
-      if(JSONMessage["response"] == "OK")
+      if(JSONMessage["response"] == "OK"){
         toastr["success"](JSONMessage["message"], "Notifications");
+        $('#deleteCourseModal').modal('hide');
+        $scope.delete = -99;
+      }
     },function(response){
       var JSONMessage = JSON.parse(JSON.stringify(response.data));
       toastr["error"]("Kesalahan Server","Failed delete course");
+      $scope.delete = -99;
     });
+
+    $scope.delete = -99;
   }
 }

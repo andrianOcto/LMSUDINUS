@@ -735,6 +735,28 @@
 <!-- END CONTAINER -->
 
 <!-- MODAL Add User -->
+<div class="modal fade bs-modal-sm in" id="deleteUserModal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Delete Course</h4>
+            </div>
+            <div class="modal-body">
+              Are you sure delete this course?
+                <!-- END FORM-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn red" ng-click="deleteUser()">Delete</button>
+            </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 
 <div class="modal fade draggable-modal" id="addUserModal" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
