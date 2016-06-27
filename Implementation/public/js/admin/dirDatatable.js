@@ -55,6 +55,15 @@ angular.module('LMS').directive('myTable', function() {
         scope.$watch(attrs.aaData, function(value) {
                 dataTable.draw();
         });
+
+        // watch for any changes to our data, rebuild the DataTable
+          scope.$watch(attrs.aaRefresh, function(value) {
+            dataTable.destroy();
+            dataTable =   element.DataTable(options);
+
+            console.log("masuk Watch");
+                  dataTable.draw();
+          });
     }
 
     return {

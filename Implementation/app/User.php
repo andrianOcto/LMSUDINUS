@@ -24,7 +24,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function courses(){
+    public function courses_create(){
       return $this->hasMany('App\Course','creator_id');
     }
+
+    public function courses(){
+      return $this->belongsToMany('App\Course', 'user_course', 'user_id', 'course_id');
+    }
+
 }

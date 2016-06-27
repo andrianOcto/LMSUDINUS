@@ -76,6 +76,11 @@
                             <span class="title">Management Courses</span>
                         </a>
                     </li>
+                    <li class="nav-item  ">
+                        <a href="{{ url('/admin/enroll') }}" class="nav-link ">
+                            <span class="title">Enroll User</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

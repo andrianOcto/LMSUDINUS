@@ -31,3 +31,7 @@ Route::get('/admin/course/read', 'Admin\CourseController@readCourse')->middlewar
 Route::post('/admin/course/create', 'Admin\CourseController@createCourse')->middleware(['auth']);
 Route::post('/admin/course/update', 'Admin\CourseController@updateCourse')->middleware(['auth']);
 Route::post('/admin/course/delete', 'Admin\CourseController@removeCourse')->middleware(['auth']);
+
+//enroll user
+Route::get('/admin/enroll', 'Admin\EnrollController@index')->middleware(['auth']);
+Route::get('/admin/enroll/read/{courseId}/{roleId}', 'Admin\EnrollController@readUser')->middleware(['auth']);
