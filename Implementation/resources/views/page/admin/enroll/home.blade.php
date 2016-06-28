@@ -832,7 +832,7 @@
             <div class="modal-body">
                 <!-- BEGIN FORM-->
                 <div class="table-scrollable">
-                    <table class="table table-striped table-bordered table-hover" my-table="addoption" action-def="action" aa-data="adddata" aa-refresh="addrefresh" width="100%">
+                    <table class="table table-striped table-bordered table-hover" my-table="addoption" action-def="addaction" aa-data="adddata" aa-refresh="addrefresh" width="100%">
                         <thead>
                             <tr>
                                 <th scope="col"> # </th>

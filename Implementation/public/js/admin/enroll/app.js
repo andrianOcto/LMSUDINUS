@@ -17,11 +17,21 @@ function UserController($scope,$http,$compile){
       { data: 'username', name: 'username' },
       { data: 'name', name: 'name' },
       { data: 'email', name: 'email' },
+      { data: 'phone', name: 'phone' },
       { data: 'role', name: 'role' },
       { defaultContent: 'a', name: 'action',searchable:false }
     ]
     };
 
+    //function to inject button into datatable
+    $scope.addaction = function( nRow, aData, iDataIndex ) {
+
+        var button  = '<div class="btn-group">'+
+            '<button class="btn btn-sm dark btn-outline" style="padding : 1px" type="button" ng-click="addUserCourse('+aData["id"]+')" aria-expanded="false"> Add User '+
+              '  <i class="fa fa-angle-down"></i></button>';
+          $('td:eq(6)', nRow).html($compile(button)($scope));
+
+    };
   $scope.showTable=false;
   //set option datatable
   $scope.option = {
@@ -53,6 +63,10 @@ function UserController($scope,$http,$compile){
             $scope.refresh = true;
           else $scope.refresh = false;
 
+          if($scope.addrefresh == false)
+            $scope.addrefresh = true;
+          else $scope.addrefresh = false;
+
   console.log("masuk refreshDatatable");
     }
 
@@ -63,6 +77,7 @@ function UserController($scope,$http,$compile){
       console.log($scope.roleTable);
 
       $scope.option['ajax']  = '/admin/enroll/read/'+$scope.roleTable+'/'+$scope.courseSelect;
+      $scope.addoption['ajax'] = '/admin/user/read/'+$scope.roleTable+'/'+$scope.courseSelect;
       $scope.refreshDatatable();
       console.log($scope.refresh);
 
@@ -77,7 +92,9 @@ function UserController($scope,$http,$compile){
   console.log($scope.courseSelect);
   $scope.idDelete = -99;
   $scope.data = false;
+  $scope.adddata = false;
   $scope.refresh = false;
+  $scope.addrefresh = false;
   $scope.emailDuplicate = false;
   $scope.usernameDuplicate = false;
   $scope.role="admin";
@@ -103,8 +120,9 @@ function UserController($scope,$http,$compile){
           '</ul></div>';
 
         $('td:eq(6)', nRow).html($compile(button)($scope));
-
   };
+
+
 
   //set toastr option
   toastr.options = {
@@ -129,7 +147,6 @@ function UserController($scope,$http,$compile){
   //function to update modal value
   $scope.updateModal = function(idUpdate,name,username,email,address,phone,role){
     $scope.refreshTable();
-    $scope.resetForm();
 
     $scope.state  = "Update User "+username;
     id  = idUpdate;
@@ -167,9 +184,52 @@ function UserController($scope,$http,$compile){
           $scope.data = true;
         else $scope.data = false;
 
+        if($scope.adddata == false)
+          $scope.adddata = true;
+        else $scope.adddata = false;
+
   }
 
+  $scope.addUserCourse = function(id){
+    //crate data body parameter
+    var data  = $.param({
+      idUser:id,
+      idCourse:$scope.courseSelect});
 
+      //send request to server
+      $http.post('/admin/enroll/addUserCourse',data,
+      {
+        headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+      })
+      .then(function(response) {
+
+          //First function handles success
+          var JSONMessage = JSON.parse(JSON.stringify(response.data));
+          //if success add user
+          if(JSONMessage["response"] == "OK"){
+            toastr["success"](JSONMessage["message"], "Notifications");
+            $scope.refreshTable();
+          }
+          else{
+            //if fail to add user
+            toastr["error"](JSONMessage["message"], "Failed add user");
+            if(JSONMessage["errorType"]=="username"){
+              $scope.usernameDuplicate = true;
+            }
+            else if(JSONMessage["errorType"]=="email"){
+              $scope.emailDuplicate = true;
+            }
+          }
+      }, function(response) {
+          //Second function handles error
+          var JSONMessage = JSON.parse(JSON.stringify(response.data));
+
+          $scope.errMessageStat = true;
+          $scope.errMessage     = JSONMessage.message;
+          toastr["error"]("Kesalahan Server","Failed add user");
+      });
+
+  }
 
   // function to submit the form after all validation has occurred
   $scope.submitForm = function(isValid) {
