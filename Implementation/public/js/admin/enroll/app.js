@@ -3,6 +3,26 @@ angular.module('LMS', ['ui.bootstrap']);
 angular.module('LMS').controller('UserController',UserController);
 
 function UserController($scope,$http,$compile){
+
+  $scope.addoption = {
+    "processing": true,
+    "serverSide": true,
+    "ajax": '/admin/user/read',
+    "dom" : "<'row'<'col-sm-6'l><'col-sm-3 pull-right'f>>" +
+  "<'row'<'col-sm-12'tr>>" +
+  "<'row'<'col-sm-5'i><'col-sm-7 pull-right'p>>",
+    "columns": [
+      { data: 'id', name: 'id',searchable: false,
+      orderable: false },
+      { data: 'username', name: 'username' },
+      { data: 'name', name: 'name' },
+      { data: 'email', name: 'email' },
+      { data: 'role', name: 'role' },
+      { defaultContent: 'a', name: 'action',searchable:false }
+    ]
+    };
+
+  $scope.showTable=false;
   //set option datatable
   $scope.option = {
     "processing": true,
@@ -38,6 +58,7 @@ function UserController($scope,$http,$compile){
 
     $scope.updateTable = function()
     {
+        $scope.showTable=true;
       console.log($scope.courseSelect);
       console.log($scope.roleTable);
 

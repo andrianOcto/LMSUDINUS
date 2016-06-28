@@ -41,7 +41,7 @@ angular.module('LMS').directive('myTable', function() {
     //     $('td:eq(6)', nRow).html( button );
     // }
 
-
+    
 
     var dataTable =   element.DataTable(options);
     dataTable.on( 'order.dt search.dt', function () {

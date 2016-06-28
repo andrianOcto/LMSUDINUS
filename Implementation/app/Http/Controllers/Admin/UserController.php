@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
+use Hash;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -17,10 +18,15 @@ class UserController extends Controller
     return view('page/admin/user/home')->with('users', $users);;
   }
 
-  public function readUser(Request $request){
-
-    return Datatables::of(User::query())->make(true);
+  public function readUser(Request $request,$role=-99,$course=-99){
+    if($role == -99 || $course== -99)
+    {
+      return Datatables::of(User::query())->make(true);
+    }
+    else
+      return Datatables::of(User::query())->make(true);
   }
+
 
   public function createUser(Request $request)
   {
@@ -181,7 +187,7 @@ class UserController extends Controller
               $user = User::find($id);
 
               $user->username 	= $username;
-              $user->password 	= $password;
+              $user->password 	= Hash::make($password);
               $user->name 	    = $name;
               $user->phone 	    = $phone;
               $user->address 	  = $address;

@@ -16,9 +16,8 @@ class EnrollController extends Controller
     return view('page/admin/enroll/home')->with('courses',$course);
   }
 
-  public function readUser($courseId,$roleId){
-
-    $courses  = Course::find($courseId)->users()->get();
+  public function readUser(Request $request){
+    $courses  = User::find(1)->courses()->get();
     return Datatables::of($courses)->make(true);
   }
 }

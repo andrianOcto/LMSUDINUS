@@ -195,7 +195,7 @@
                 </div>
             </div>
 
-            <div class="portlet light bordered">
+            <div class="portlet light bordered" ng-show="showTable">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="icon-user font-red"></i>
@@ -823,7 +823,7 @@
 
 
 <div class="modal fade draggable-modal" id="addUserModal" tabindex="-1" role="basic" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -831,95 +831,24 @@
             </div>
             <div class="modal-body">
                 <!-- BEGIN FORM-->
-                <form name="userForm"  ng-submit="submitForm(userForm.$valid)" novalidate class="form-horizontal">
-                    <div class="form-body">
-                      {{ csrf_field() }}
-                      <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && submitted}">
-                          <label class="col-md-3 control-label">Name *</label>
-                          <div class="col-md-8">
-                              <input type="text" class="form-control" ng-model="name" id="name" name="name" placeholder="Username" ng-required="true">
-                              <p ng-show="userForm.name.$invalid && submitted" class="help-block">Name is required.</p>
-                          </div>
-                      </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && submitted}">
-                            <label class="col-md-3 control-label">Username</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" ng-model="username" id="username" name="username" placeholder="Username" ng-required="true">
-                                <p ng-show="userForm.username.$invalid && submitted" class="help-block">Username is required.</p>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : (userForm.password.$invalid || userForm.confirmPass.$invalid) && submitted}">
-                            <label class="col-md-3 control-label">Password</label>
-                            <div class="col-md-8">
-                                <div class="input-group" >
-                                    <input type="password" class="form-control" ng-model="password" id="password" name="password" ng-required="true" placeholder="Password">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover" my-table="addoption" action-def="action" aa-data="adddata" aa-refresh="addrefresh" width="100%">
+                        <thead>
+                            <tr>
+                                <th scope="col"> # </th>
+                                <th scope="col"> Username </th>
+                                <th scope="col"> Name </th>
+                                <th scope="col"> Email </th>
+                                <th scope="col"> Phone </th>
+                                <th scope="col"> Role </th>
+                                <th scope="col"> Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                                </div>
-                                <p ng-show="userForm.password.$invalid && submitted" class="help-block">Password is required.</p>
-
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.confirmPass.$invalid && submitted}">
-                            <label class="col-md-3 control-label">Confirm Password</label>
-                            <div class="col-md-8">
-                                <div class="input-group" >
-                                    <input type="password" class="form-control" ng-model="confirmPass" id="confirmPass" name="confirmPass" ng-required="true" placeholder="Password">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-
-                                </div>
-                                <p ng-show="userForm.confirmPass.$invalid && submitted" class="help-block">Password does not match.</p>
-
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && submitted}">
-                            <label class="col-md-3 control-label">Email</label>
-                            <div class="col-md-8">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-envelope"></i>
-                                    </span>
-                                    <input type="email" class="form-control" ng-model="email" id="email" name="email" ng-required="true" placeholder="Email Address">
-
-                                  </div>
-                                  <p ng-show="userForm.email.$invalid && submitted" class="help-block">Enter a valid email</p>
-
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.address.$invalid && submitted}">
-                            <label class="col-md-3 control-label">Address</label>
-                            <div class="col-md-8">
-                                <textarea class="form-control" rows="3" ng-model="address" id="address" name="address" placeholder="Address" ng-required="true"></textarea>
-                                <p ng-show="userForm.address.$invalid && submitted" class="help-block">Address is required.</p>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.phone.$invalid && submitted}">
-                            <label class="col-md-3 control-label">Phone</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" ng-model="phone" id="phone" name="phone" placeholder="Username" ng-required="true">
-                                <p ng-show="userForm.phone.$invalid && submitted" class="help-block">Phone is required.</p>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.role.$invalid && submitted }">
-                            <label class="col-md-3 control-label">Role</label>
-                            <div class="col-md-8">
-                              <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                  <label ng-click="changeRole('admin')" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'admin'}">
-                                      <input type="radio" class="toggle" required ng-model="role" value="admin" id="role" checked name="role">Admin</label>
-                                  <label ng-click="changeRole('lecturer')" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'lecturer'}">
-                                      <input type="radio"  class="toggle" required ng-model="role" value="lecturer" id="role" name="role">Lecturer</label>
-                                  <label class="btn btn-transparent blue btn-outline btn-sm" ng-click="changeRole('student')" ng-class="{ 'active' : role == 'student'}">
-                                      <input type="radio" class="toggle" required ng-model="role" value="student" id="role" name="role">Student</label>
-                              </div>
-                              <p ng-show="userForm.role.$invalid && submitted" class="help-block">Role is required.</p>
-                            </div>
-                        </div>
-
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
 
                 <!-- END FORM-->
 
