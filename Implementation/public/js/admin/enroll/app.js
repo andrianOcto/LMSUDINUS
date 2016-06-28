@@ -62,7 +62,7 @@ function UserController($scope,$http,$compile){
       console.log($scope.courseSelect);
       console.log($scope.roleTable);
 
-      $scope.option['ajax']  = '/admin/enroll/read/'+$scope.courseSelect+'/'+$scope.roleTable;
+      $scope.option['ajax']  = '/admin/enroll/read/'+$scope.roleTable+'/'+$scope.courseSelect;
       $scope.refreshDatatable();
       console.log($scope.refresh);
 

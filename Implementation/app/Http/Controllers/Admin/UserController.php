@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
+use DB;
 use Hash;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -23,8 +24,24 @@ class UserController extends Controller
     {
       return Datatables::of(User::query())->make(true);
     }
-    else
-      return Datatables::of(User::query())->make(true);
+    else{
+      $courseId = DB::table('user_course')->where('course_id', $course)->lists('user_id');
+      if($role == 0) //get all user
+      $users = DB::table('users')
+                    ->whereNotIn('id', $courseId);
+      else if($role == 1)//get lecturere users
+      $users = DB::table('users')
+                    ->where('role','lecturer')
+                    ->whereNotIn('id', $courseId);
+      else if($role == 2)
+      $users = DB::table('users')
+                    ->where('role','student')
+                    ->whereNotIn('id', $courseId);
+
+
+      return Datatables::of($users)->make(true);
+    }
+
   }
 
 

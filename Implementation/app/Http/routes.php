@@ -34,4 +34,4 @@ Route::post('/admin/course/delete', 'Admin\CourseController@removeCourse')->midd
 
 //enroll user
 Route::get('/admin/enroll/', 'Admin\EnrollController@index')->middleware(['auth']);
-Route::get('/admin/enroll/read/{courseId}/{roleId}', 'Admin\EnrollController@readUser')->middleware(['auth']);
+Route::get('/admin/enroll/read/{role}/{course}', 'Admin\EnrollController@readUser')->middleware(['auth']);
