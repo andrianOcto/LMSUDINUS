@@ -112,12 +112,8 @@ function UserController($scope,$http,$compile){
   $scope.action = function( nRow, aData, iDataIndex ) {
 
       var button  = '<div class="btn-group">'+
-          '<button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions'+
-            '  <i class="fa fa-angle-down"></i></button>'+
-          '<ul class="dropdown-menu" role="menu">'+
-              '<li><a href="#addUserModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["name"]+'\',\''+aData["username"]+'\',\''+aData["email"]+'\',\''+aData["address"]+'\',\''+aData["phone"]+'\',\''+aData["role"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
-              '<li><a href="#deleteUserModal" data-toggle="modal" ng-click="(delete('+aData["id"]+'))"><i class="icon-tag"></i> Delete </a></li>'+
-          '</ul></div>';
+          '<button class="btn btn-xs green dropdown-toggle" ng-click="deleteUser('+aData["id"]+')" type="button" data-toggle="dropdown" aria-expanded="false"> Remove '+
+            '  <i class="fa fa-angle-down"></i></button>';
 
         $('td:eq(6)', nRow).html($compile(button)($scope));
   };
@@ -345,23 +341,26 @@ function UserController($scope,$http,$compile){
   };
 
   //function delete user
-  $scope.deleteUser = function(){
-    $scope.refreshTable();
-
+  $scope.deleteUser = function(id){
     //crate data body parameter
     var data  = $.param({
-      idUser:$scope.idDelete});
-    $http.post('/admin/user/delete',data,  {
+      idUser:id,
+      idCourse:$scope.courseSelect});
+    $http.post('/admin/enroll/deleteUserCourse',data,  {
         headers:{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
       }).
     then(function(response){
+
       //First function handles success
       var JSONMessage = JSON.parse(JSON.stringify(response.data));
       //if success add user
       if(JSONMessage["response"] == "OK"){
         toastr["success"](JSONMessage["message"], "Notifications");
-        $('#deleteUserModal').modal('hide');
-        $scope.delete = -99;
+        $scope.refreshTable();
+      }
+      else{
+        //if fail to add user
+        toastr["error"](JSONMessage["message"], "Failed add user");
       }
     },function(response){
       var JSONMessage = JSON.parse(JSON.stringify(response.data));

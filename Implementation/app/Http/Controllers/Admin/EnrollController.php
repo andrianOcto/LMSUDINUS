@@ -84,4 +84,57 @@ class EnrollController extends Controller
 
         return response()->json($returnData, $statusCode);
   }
+
+  public function deleteUserCourse(Request $request){
+    $returnData       = array();
+      $response         = "OK";
+      $statusCode       = 200;
+      $result           = null;
+      $message          = "Add user success.";
+      $isError          = FALSE;
+      $missingParams    = null;
+      $errorType        = "username";
+
+      $idUser           = ($request->input('idUser') != null) ? $request->input('idUser'):null;
+      $idCourse         = ($request->input('idCourse') != null) ? $request->input('idCourse'):null;
+
+      if(!isset($idUser)){
+          $missingParams[] = "idUser";
+      }
+      if(!isset($idCourse)){
+          $missingParams[] = "idCourse";
+      }
+
+      if(isset($missingParams)){
+              $isError = TRUE;
+              $response = "FAILED";
+              $statusCode = 400;
+              $message = "Missing parameters : {".implode(', ', $missingParams)."}";
+          }
+
+
+        if(!$isError){
+            try {
+              $course = Course::find($idCourse);
+
+              $course->users()->detach($idUser);
+
+            } catch (Exception $e) {
+                $response = "FAILED";
+                $statusCode = 400;
+                $message = $e->getMessage();
+            } // */
+        }
+
+        $returnData = array(
+            'response'  => $response,
+            'status_code' => $statusCode,
+            'message'   => $message,
+            'result'    => $result,
+            'errorType' => $errorType
+            );
+
+        return response()->json($returnData, $statusCode);
+  }
+
 }
