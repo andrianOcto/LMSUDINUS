@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
+use Excel;
 use DB;
 use Hash;
 use App\Http\Requests;
@@ -30,6 +31,50 @@ class UserController extends Controller
     $input    = $request->file('file');
     $extension = $input->getClientOriginalExtension();
     $input->move(public_path()."/file/excel/", "userImport.".$extension);
+
+    if($extension == "xls"){
+      Excel::load(public_path()."/file/excel/userImport.xls", function($reader) {
+          $result = $reader->toArray();
+          // reader methods
+
+          foreach ($result as $item) {
+            $user = new User;
+
+            $user->username 	= $item['username'];
+            $user->password 	= $item['password'];
+            $user->name 	    = $item['name'];
+            $user->phone 	    = $item['phone'];
+            $user->address 	  = $item['address'];
+            $user->email 	    = $item['email'];
+            $user->image 	    = "../image/default.png";
+            $user->role 		  = $item['role'];
+
+            $user->save();
+          }
+
+      });
+    }
+    else if($extension == "xlsx"){
+      Excel::load(public_path()."/file/excel/userImport.xlsx", function($reader) {
+        $result = $reader->toArray();
+        // reader methods
+        foreach ($result as $item) {
+          $user = new User;
+
+          $user->username 	= $item['username'];
+          $user->password 	= $item['password'];
+          $user->name 	    = $item['name'];
+          $user->phone 	    = $item['phone'];
+          $user->address 	  = $item['address'];
+          $user->email 	    = $item['email'];
+          $user->image 	    = "../image/default.png";
+          $user->role 		  = $item['role'];
+
+          $user->save();
+        }
+        
+      });
+    }
 
     return response()->json("success", 200);
   }

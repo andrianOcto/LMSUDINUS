@@ -143,7 +143,7 @@
 
             <div class="clearfix"></div>
             <!-- END DASHBOARD STATS 1-->
-            <form action="{{ url('/admin/user/importUser') }}" class="dropzone dropzone-file-area" id="my-dropzone" style="width: 500px; margin-top: 50px;border-style:dashed;border-color:#0087F7">
+            <form action="{{ url('/admin/user/importUser') }}" class="dropzone dropzone-file-area" id="importUser" style="width: 500px; margin-top: 50px;border-style:dashed;border-color:#0087F7">
                 {{ csrf_field() }}
                 <h3 class="sbold">Drop files here or click to upload</h3>
                 <p> This is just a demo dropzone. Selected files are not actually uploaded. </p>
