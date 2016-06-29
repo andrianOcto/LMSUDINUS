@@ -5,7 +5,7 @@
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="index.html">
-                <img src="../template/assets/layouts/layout4/img/logo-light.png" alt="logo" class="logo-default" /> </a>
+                <img src="{{ URL::asset('template/assets/layouts/layout4/img/logo-light.png')}}" alt="logo" class="logo-default" /> </a>
             <div class="menu-toggler sidebar-toggler">
                 <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
             </div>
@@ -179,7 +179,7 @@
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <span class="username username-hide-on-mobile"> Nick </span>
                             <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                            <img alt="" class="img-circle" src="../template/assets/layouts/layout4/img/avatar9.jpg" /> </a>
+                            <img alt="" class="img-circle" src="{{ URL::asset('template/assets/layouts/layout4/img/avatar9.jpg')}}" /> </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
                                 <a href="page_user_profile_1.html">

@@ -58,8 +58,8 @@
                         </a>
                     </li>
                     <li class="nav-item  ">
-                        <a href="ui_general.html" class="nav-link ">
-                            <span class="title">Export Student</span>
+                        <a href="{{ url('/admin/user/import') }}" class="nav-link ">
+                            <span class="title">Import Student</span>
                         </a>
                     </li>
                 </ul>

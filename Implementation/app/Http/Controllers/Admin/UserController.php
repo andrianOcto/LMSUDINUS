@@ -19,6 +19,21 @@ class UserController extends Controller
     return view('page/admin/user/home')->with('users', $users);;
   }
 
+  public function indexImport()
+  {
+    $users = User::paginate(15);
+    return view('page/admin/user/import')->with('users', $users);;
+  }
+
+  public function importUser(Request $request)
+  {
+    $input    = $request->file('file');
+    $extension = $input->getClientOriginalExtension();
+    $input->move(public_path()."/file/excel/", "userImport.".$extension);
+
+    return response()->json("success", 200);
+  }
+
   public function readUser(Request $request,$role=-99,$course=-99){
     if($role == -99 || $course== -99)
     {

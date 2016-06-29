@@ -25,6 +25,10 @@ Route::post('/admin/user/update', 'Admin\UserController@updateUser')->middleware
 Route::post('/admin/user/delete', 'Admin\UserController@removeUser')->middleware(['auth']);
 Route::get('/admin/user/read/{role?}/{course?}', 'Admin\UserController@readUser')->middleware(['auth']);
 
+Route::get('/admin/user/import', 'Admin\UserController@indexImport')->middleware(['auth']);
+Route::post('/admin/user/importUser', 'Admin\UserController@importUser')->middleware(['auth']);
+
+
 //course route
 Route::get('/admin/course', 'Admin\CourseController@index')->middleware(['auth']);
 Route::get('/admin/course/read', 'Admin\CourseController@readCourse')->middleware(['auth']);
