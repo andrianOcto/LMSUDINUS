@@ -88,6 +88,31 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item  ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-user"></i>
+                    <span class="title">System</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  ">
+                        <a href="{{ url('/admin/course') }}" class="nav-link ">
+                            <span class="title">Log & Aktifitas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="{{ url('/admin/enroll') }}" class="nav-link ">
+                            <span class="title">Enroll User</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a href="{{ url('/admin/course/import') }}" class="nav-link ">
+                            <span class="title">Import Course</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>

@@ -22,7 +22,7 @@ class CreateCourses extends Migration
           $table->char('status',1);
           $table->timestamps();
 
-          $table->foreign('creator_id')->references('id')->on('users');
+          $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');;
       });
     }
 
