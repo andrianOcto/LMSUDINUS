@@ -7,12 +7,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Course;
 use App\User;
+use App\UserLog;
+use Auth;
 use DB;
 
 class EnrollController extends Controller
 {
   public function index()
   {
+    $userLogged   = Auth::user();
+
+    $userLog = new UserLog;
+    $userLog->user_id = $userLogged->id;
+    $userLog->activity= $userLogged->name." open enroll page ";
+    $userLog->save();
+
     $course = Course::all();
     return view('page/admin/enroll/home')->with('courses',$course);
   }
@@ -81,7 +90,12 @@ class EnrollController extends Controller
             'result'    => $result,
             'errorType' => $errorType
             );
+        $userLogged   = Auth::user();
 
+        $userLog = new UserLog;
+        $userLog->user_id = $userLogged->id;
+        $userLog->activity= $userLogged->name." enroll user ".$idUser." into course ".$idCourse." with status ".$returnData["message"];
+        $userLog->save();
         return response()->json($returnData, $statusCode);
   }
 
@@ -134,6 +148,12 @@ class EnrollController extends Controller
             'errorType' => $errorType
             );
 
+        $userLogged   = Auth::user();
+
+        $userLog = new UserLog;
+        $userLog->user_id = $userLogged->id;
+        $userLog->activity= $userLogged->name." delete user ".$idUser." from course ".$idCourse." with status ".$returnData["message"];
+        $userLog->save();
         return response()->json($returnData, $statusCode);
   }
 

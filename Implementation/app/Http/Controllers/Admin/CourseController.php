@@ -11,16 +11,30 @@ use App\Course;
 use Excel;
 use DB;
 use Log;
+use App\UserLog;
 
 class CourseController extends Controller
 {
   public function index()
   {
+    $userLogged   = Auth::user();
+
+    $userLog = new UserLog;
+    $userLog->user_id = $userLogged->id;
+    $userLog->activity= $userLogged->name." open course page";
+    $userLog->save();
+
     return view('page/admin/course/home');;
   }
 
   public function indexImport()
   {
+    $userLogged   = Auth::user();
+
+    $userLog = new UserLog;
+    $userLog->user_id = $userLogged->id;
+    $userLog->activity= $userLogged->name." open import page";
+    $userLog->save();
     return view('page/admin/course/import');
   }
 
@@ -60,6 +74,12 @@ class CourseController extends Controller
         return response()->json($message, $statusCode);
       }
       finally{
+        $userLogged   = Auth::user();
+
+        $userLog = new UserLog;
+        $userLog->user_id = $userLogged->id;
+        $userLog->activity= $userLogged->name." import course with status ".$statusCode;
+        $userLog->save();
         return response()->json($message, $statusCode);
       }
 
@@ -138,7 +158,12 @@ class CourseController extends Controller
             'result'    => $result,
             'errorType' => $errorType
             );
+        $userLogged   = Auth::user();
 
+        $userLog = new UserLog;
+        $userLog->user_id = $userLogged->id;
+        $userLog->activity= $userLogged->name." create course ".$name." with status ".$returnData["message"];
+        $userLog->save();
         return response()->json($returnData, $statusCode);
   }
   public function updateCourse(Request $request)
@@ -207,6 +232,12 @@ class CourseController extends Controller
             'result'    => $result,
             'errorType' => $errorType
             );
+        $userLogged   = Auth::user();
+
+        $userLog = new UserLog;
+        $userLog->user_id = $userLogged->id;
+        $userLog->activity= $userLogged->name." update course ".$name." with status ".$statusCode;
+        $userLog->save();
 
         return response()->json($returnData, $statusCode);
   }
@@ -257,6 +288,12 @@ class CourseController extends Controller
             'errorType' => $errorType
             );
 
+        $userLogged   = Auth::user();
+
+        $userLog = new UserLog;
+        $userLog->user_id = $userLogged->id;
+        $userLog->activity= $userLogged->name." delete course ".$id." with status ".$returnData["message"];
+        $userLog->save();
         return response()->json($returnData, $statusCode);
   }
 

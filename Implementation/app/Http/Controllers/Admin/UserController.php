@@ -8,21 +8,38 @@ use Illuminate\Http\Request;
 use Excel;
 use DB;
 use Hash;
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\UserLog;
 use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
   public function index()
   {
+    $user   = Auth::user();
+
+    $userLog = new UserLog;
+    $userLog->user_id = $user->id;
+    $userLog->activity= $user->name." open management user";
+    $userLog->save();
+
+
     $users = User::paginate(15);
     return view('page/admin/user/home')->with('users', $users);;
   }
 
   public function indexImport()
   {
+    $user   = Auth::user();
+
+    $userLog = new UserLog;
+    $userLog->user_id = $user->id;
+    $userLog->activity= $user->name." open import user page";
+    $userLog->save();
+
     return view('page/admin/user/import');
   }
 
@@ -60,11 +77,17 @@ class UserController extends Controller
         DB::rollback();
         $statusCode = 400;
         $message = "Failed import user";
-        Log::info('error 2.'.$isError.'dengan staut'.$statusCode.'message nya'.$message);
+
         return response()->json($message, $statusCode);
       }
       finally{
-        Log::info('redirect ajalah.'.$isError.'dengan staut'.$statusCode.'message nya'.$message);
+        $userLogged   = Auth::user();
+
+        $userLog = new UserLog;
+        $userLog->user_id = $userLogged->id;
+        $userLog->activity= $userLogged->name." import user with status ".$message;
+        $userLog->save();
+
         return response()->json($message, $statusCode);
       }
 
@@ -192,6 +215,13 @@ class UserController extends Controller
             'errorType' => $errorType
             );
 
+        $userLogged   = Auth::user();
+
+        $userLog = new UserLog;
+        $userLog->user_id = $userLogged->id;
+        $userLog->activity= $userLogged->name." create user ".$username." with status ".$returnData["message"];
+        $userLog->save();
+
         return response()->json($returnData, $statusCode);
   }
   public function updateUser(Request $request)
@@ -292,6 +322,12 @@ class UserController extends Controller
             'result'    => $result,
             'errorType' => $errorType
             );
+        $userLogged   = Auth::user();
+
+        $userLog = new UserLog;
+        $userLog->user_id = $userLogged->id;
+        $userLog->activity= $userLogged->name." update user ".$username." with status ".$returnData["message"];
+        $userLog->save();
 
         return response()->json($returnData, $statusCode);
   }
@@ -341,6 +377,13 @@ class UserController extends Controller
             'result'    => $result,
             'errorType' => $errorType
             );
+        $userLogged   = Auth::user();
+
+        $userLog = new UserLog;
+        $userLog->user_id = $userLogged->id;
+        $userLog->activity= $userLogged->name." delete user ".$id." with status ".$returnData["message"];
+        $userLog->save();
+
 
         return response()->json($returnData, $statusCode);
   }
