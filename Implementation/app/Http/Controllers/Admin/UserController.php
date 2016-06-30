@@ -23,8 +23,7 @@ class UserController extends Controller
 
   public function indexImport()
   {
-    $users = User::paginate(15);
-    return view('page/admin/user/import')->with('users', $users);;
+    return view('page/admin/user/import');
   }
 
   public function importUser(Request $request)

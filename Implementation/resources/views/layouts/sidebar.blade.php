@@ -81,6 +81,11 @@
                             <span class="title">Enroll User</span>
                         </a>
                     </li>
+                    <li class="nav-item  ">
+                        <a href="{{ url('/admin/course/import') }}" class="nav-link ">
+                            <span class="title">Import Course</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

@@ -8,6 +8,9 @@ use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Course;
+use Excel;
+use DB;
+use Log;
 
 class CourseController extends Controller
 {
@@ -16,10 +19,53 @@ class CourseController extends Controller
     return view('page/admin/course/home');;
   }
 
-  public function test(){
-    $user   = Auth::user();
-    return var_dump($user->id);
+  public function indexImport()
+  {
+    return view('page/admin/course/import');
   }
+
+  public function importCourse(Request $request)
+  {
+    $statusCode = 200;
+    $message = "Success";
+    $input    = $request->file('file');
+    $extension = $input->getClientOriginalExtension();
+    $input->move(public_path()."/file/excel/", "courseImport.".$extension);
+
+    try {
+      Excel::load(public_path()."/file/excel/courseImport.".$extension, function($reader) {
+        $result = $reader->toArray();
+
+          // reader methods
+          DB::beginTransaction();
+          foreach ($result as $item) {
+            $course = new Course;
+            $user   = Auth::user();
+
+            $course->code 	      = $item['code'];
+            $course->name 	      = $item['name'];
+            $course->creator_id   = $user->id;
+            $course->description 	= $item['description'];
+            $course->credit 	    = $item['credit'];
+            $course->status 	    = $item['status'];
+
+            $course->save();
+          }
+          DB::commit();
+      });
+      } catch (\PDOException $e) {
+        DB::rollback();
+        $statusCode = 400;
+        $message = "Failed import course";
+        return response()->json($message, $statusCode);
+      }
+      finally{
+        return response()->json($message, $statusCode);
+      }
+
+
+  }
+
 
   public function readCourse(Request $request){
 
