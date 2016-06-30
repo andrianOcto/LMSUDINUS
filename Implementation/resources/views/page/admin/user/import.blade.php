@@ -13,7 +13,7 @@
 <link href="{{ URL::asset('template/assets/global/plugins/dropzone/basic.min.css')}}" rel="stylesheet" type="text/css" />
 
 <!-- Controller javascript -->
-<script src="{{ URL::asset('js/admin/enroll/app.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('js/admin/user/import.js')}}" type="text/javascript"></script>
 
 @endsection
 @section('body')

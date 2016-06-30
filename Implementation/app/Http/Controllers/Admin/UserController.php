@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use Log;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
@@ -11,6 +11,7 @@ use Hash;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -28,15 +29,18 @@ class UserController extends Controller
 
   public function importUser(Request $request)
   {
+    $statusCode = 200;
+    $message = "Success";
     $input    = $request->file('file');
     $extension = $input->getClientOriginalExtension();
     $input->move(public_path()."/file/excel/", "userImport.".$extension);
 
-    if($extension == "xls"){
-      Excel::load(public_path()."/file/excel/userImport.xls", function($reader) {
-          $result = $reader->toArray();
-          // reader methods
+    try {
+      Excel::load(public_path()."/file/excel/userImport.".$extension, function($reader) {
+        $result = $reader->toArray();
 
+          // reader methods
+          DB::beginTransaction();
           foreach ($result as $item) {
             $user = new User;
 
@@ -51,32 +55,21 @@ class UserController extends Controller
 
             $user->save();
           }
-
+          DB::commit();
       });
-    }
-    else if($extension == "xlsx"){
-      Excel::load(public_path()."/file/excel/userImport.xlsx", function($reader) {
-        $result = $reader->toArray();
-        // reader methods
-        foreach ($result as $item) {
-          $user = new User;
+      } catch (\PDOException $e) {
+        DB::rollback();
+        $statusCode = 400;
+        $message = "Failed import user";
+        Log::info('error 2.'.$isError.'dengan staut'.$statusCode.'message nya'.$message);
+        return response()->json($message, $statusCode);
+      }
+      finally{
+        Log::info('redirect ajalah.'.$isError.'dengan staut'.$statusCode.'message nya'.$message);
+        return response()->json($message, $statusCode);
+      }
 
-          $user->username 	= $item['username'];
-          $user->password 	= $item['password'];
-          $user->name 	    = $item['name'];
-          $user->phone 	    = $item['phone'];
-          $user->address 	  = $item['address'];
-          $user->email 	    = $item['email'];
-          $user->image 	    = "../image/default.png";
-          $user->role 		  = $item['role'];
 
-          $user->save();
-        }
-        
-      });
-    }
-
-    return response()->json("success", 200);
   }
 
   public function readUser(Request $request,$role=-99,$course=-99){
