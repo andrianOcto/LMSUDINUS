@@ -26,7 +26,7 @@ function UserController($scope,$http,$compile){
             '  <i class="fa fa-angle-down"></i></button>'+
           '<ul class="dropdown-menu" role="menu">'+
               '<li><a href="#addUserModal" data-toggle="modal" ng-click="updateModal('+aData["id"]+',\''+aData["name"]+'\',\''+aData["username"]+'\',\''+aData["email"]+'\',\''+aData["address"]+'\',\''+aData["phone"]+'\',\''+aData["role"]+'\')"><i class="icon-docs"></i> Edit </a></li>'+
-              '<li><a href="#deleteUserModal" data-toggle="modal" ng-click="(delete('+aData["id"]+'))"><i class="icon-tag"></i> Delete </a></li>'+
+              '<li><a href="#deleteUserModal" data-toggle="modal" ng-click="delete('+aData["id"]+')"><i class="icon-tag"></i> Delete </a></li>'+
           '</ul></div>';
 
         $('td:eq(6)', nRow).html($compile(button)($scope));
@@ -224,14 +224,14 @@ function UserController($scope,$http,$compile){
       if(JSONMessage["response"] == "OK"){
         toastr["success"](JSONMessage["message"], "Notifications");
         $('#deleteUserModal').modal('hide');
-        $scope.delete = -99;
+        $scope.idDelete = -99;
       }
     },function(response){
       var JSONMessage = JSON.parse(JSON.stringify(response.data));
       toastr["error"]("Kesalahan Server","Failed add user");
-        $scope.delete = -99;
+        $scope.idDelete = -99;
     });
-  $scope.delete = -99;
+  $scope.idDelete = -99;
   }
 
 }

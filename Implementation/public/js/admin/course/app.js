@@ -209,14 +209,14 @@ function UserController($scope,$http,$compile){
       if(JSONMessage["response"] == "OK"){
         toastr["success"](JSONMessage["message"], "Notifications");
         $('#deleteCourseModal').modal('hide');
-        $scope.delete = -99;
+        $scope.idDelete = -99;
       }
     },function(response){
       var JSONMessage = JSON.parse(JSON.stringify(response.data));
       toastr["error"]("Kesalahan Server","Failed delete course");
-      $scope.delete = -99;
+      $scope.idDelete = -99;
     });
 
-    $scope.delete = -99;
+    $scope.idDelete = -99;
   }
 }
