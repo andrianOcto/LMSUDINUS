@@ -28,6 +28,7 @@
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="../assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
         <link href="../assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/pages/css/profile.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="../assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
@@ -61,7 +62,7 @@
             <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
-                  <?php include "dashboard.php";?>
+                  <?php include "_router.php"; ?>
                 </div>
                 <!-- END CONTENT BODY -->
             </div>
