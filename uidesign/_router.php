@@ -41,23 +41,23 @@ switch ($page) {
 		break;
 
 	case 'courseoutline':
-		# code...
+		require "courseoutline.php";
 		break;
 
 	case 'coursematerial':
-		# code...
+		require "coursematerial.php";
 		break;
 
 	case 'courseassignment':
-		# code...
+		require "courseassignment.php";
 		break;
 
 	case 'coursegrade':
-		# code...
+		require "coursegrade.php";
 		break;
 
 	case 'profile':
-		# code...
+		require "profile.php";
 		break;
 
 	case 'logout':

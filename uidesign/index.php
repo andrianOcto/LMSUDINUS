@@ -24,6 +24,9 @@
         <link href="../assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
         <link href="../assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="../assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
@@ -126,12 +129,17 @@
         <script src="../assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+        <script src="../assets/global/scripts/datatable.js" type="text/javascript"></script>
+        <script src="../assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+        <script src="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+        <script src="../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="../assets/global/scripts/app.min.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
-        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->        
         <script src="../assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
+        <script src="../assets/pages/scripts/table-datatables-buttons.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <script src="../assets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>

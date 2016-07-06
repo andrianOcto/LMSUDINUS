@@ -9,7 +9,7 @@
   </div>
   <div class="clearfix">&nbsp;</div>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="portlet light bordered">
         <div class="portlet-title">
             <div class="caption">
@@ -29,7 +29,39 @@
             <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique. </p>
             <p> Aet accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et. </p>
         </div>
-    </div>      
+    </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <a href="#post_form" class="btn btn-large btn-block blue" data-toggle="modal">
+        <b> <i class="icon icon-plus"></i> Postingan Baru </b></a>
+        <div id="post_form" class="modal fade" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                      <h4 class="modal-title">Postingan Berita Terbaru</h4>
+                  </div>
+                  <div class="modal-body">                      
+                    <div class="row">
+                        <form role="form" style="padding: 0px 10px;">
+                            <div class="form-body" style="margin:0px; padding:0px;">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                    <label for="form_control_1">Apa yang anda pikirkan</label>
+                                </div>                    
+                            </div>                                  
+                        </form>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" data-dismiss="modal" class="btn yellow">Tutup</button>
+                      <button type="button" class="btn green">Posting</button>
+                  </div>
+              </div>
+          </div>
+      </div>      
       <div class="portlet box green">
         <div class="portlet-title">
           <div class="caption"> <i class="fa fa-gift"></i>Posting Terbaru</div>
