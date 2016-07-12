@@ -61,17 +61,17 @@
 										</a>
 										<ul class="dropdown-menu pull-right">
 											<li>
-												<a href="javascript:;"> <i class="fa fa-pencil"></i> Materi Teks </a>
+												<a href="?page=formmaterial"> <i class="fa fa-pencil"></i> Materi Teks </a>
 											</li>
 											<li>
-												<a href="javascript:;"> <i class="fa fa-upload"></i> Upload File </a>
+												<a href="?page=formmaterial"> <i class="fa fa-upload"></i> Upload File </a>
 											</li>
 											<li>
-												<a href="javascript:;"> <i class="fa fa-link"></i> Materi Link </a>
+												<a href="?page=formmaterial"> <i class="fa fa-link"></i> Materi Link </a>
 											</li>
 											<li class="divider"> </li>
 											<li>
-												<a href="javascript:;"> <i class="fa fa-question"></i> Penugasan </a>
+												<a href="?page=formassignment"> <i class="fa fa-question"></i> Penugasan </a>
 											</li>
 										</ul>
 									</div>									

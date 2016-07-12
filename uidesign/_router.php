@@ -48,9 +48,17 @@ switch ($page) {
 		require "coursematerial.php";
 		break;
 
+	case 'formmaterial':
+		require 'formmaterial.php';
+		break;
+
 	case 'courseassignment':
 		require "courseassignment.php";
 		break;
+
+	case 'formassignment':
+		require 'formassignment.php';
+		break;	
 
 	case 'coursegrade':
 		require "coursegrade.php";
