@@ -44,3 +44,6 @@ Route::get('/admin/enroll/', 'Admin\EnrollController@index')->middleware(['auth'
 Route::get('/admin/enroll/read/{role}/{course}', 'Admin\EnrollController@readUser')->middleware(['auth']);
 Route::post('/admin/enroll/addUserCourse', 'Admin\EnrollController@addUserCourse')->middleware(['auth']);
 Route::post('/admin/enroll/deleteUserCourse', 'Admin\EnrollController@deleteUserCourse')->middleware(['auth']);
+
+//lecturer
+Route::get('/dosen', 'Dosen\DosenController@index')->middleware(['auth']);;
