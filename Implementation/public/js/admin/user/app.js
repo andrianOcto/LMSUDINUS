@@ -8,7 +8,7 @@ function UserController($scope,$http,$compile){
   $scope.data = false;
   $scope.emailDuplicate = false;
   $scope.usernameDuplicate = false;
-  $scope.role="admin";
+  $scope.role=0;
   $scope.submitted  = false;
   $scope.state = "Add New User";
   var id=0;
@@ -30,6 +30,15 @@ function UserController($scope,$http,$compile){
           '</ul></div>';
 
         $('td:eq(6)', nRow).html($compile(button)($scope));
+        if (aData["role"] == 0) {
+          $('td:eq(5)', nRow).html("admin");
+        }
+        else if (aData["role"] == 1) {
+          $('td:eq(5)', nRow).html("lecturer");
+        }
+        else if (aData["role"] == 2) {
+          $('td:eq(5)', nRow).html("student");
+        }
 
   };
 
@@ -51,6 +60,7 @@ function UserController($scope,$http,$compile){
   //function to change radiobutton value
   $scope.changeRole = function(value){
     $scope.role = value;
+    console.log($scope.role);
   }
 
   //function to update modal value
@@ -78,7 +88,7 @@ function UserController($scope,$http,$compile){
     $scope.confirmPass    =null;
     $scope.address  =null;
     $scope.phone    =null;
-    $scope.role     ="admin";
+    $scope.role     =0;
     $scope.submitted= false;
     $('#addUserModal').modal('hide');
   }

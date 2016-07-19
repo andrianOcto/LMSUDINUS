@@ -844,12 +844,12 @@
                             <label class="col-md-3 control-label">Role</label>
                             <div class="col-md-8">
                               <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                  <label ng-click="changeRole('admin')" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'admin'}">
-                                      <input type="radio" class="toggle" required ng-model="role" value="admin" id="role" checked name="role">Admin</label>
-                                  <label ng-click="changeRole('lecturer')" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'lecturer'}">
-                                      <input type="radio"  class="toggle" required ng-model="role" value="lecturer" id="role" name="role">Lecturer</label>
-                                  <label class="btn btn-transparent blue btn-outline btn-sm" ng-click="changeRole('student')" ng-class="{ 'active' : role == 'student'}">
-                                      <input type="radio" class="toggle" required ng-model="role" value="student" id="role" name="role">Student</label>
+                                  <label ng-click="changeRole(0)" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'admin'}">
+                                      <input type="radio" class="toggle" required ng-model="role" value="0" id="role" checked name="role">Admin</label>
+                                  <label ng-click="changeRole(1)" class="btn btn-transparent blue btn-outline btn-sm" ng-class="{ 'active' : role == 'lecturer'}">
+                                      <input type="radio"  class="toggle" required ng-model="role" value="1" id="role" name="role">Lecturer</label>
+                                  <label class="btn btn-transparent blue btn-outline btn-sm" ng-click="changeRole(2)" ng-class="{ 'active' : role == 'student'}">
+                                      <input type="radio" class="toggle" required ng-model="role" value="2" id="role" name="role">Student</label>
                               </div>
                               <p ng-show="userForm.role.$invalid && submitted" class="help-block">Role is required.</p>
                             </div>

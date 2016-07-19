@@ -96,7 +96,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  ">
-                        <a href="{{ url('/admin/course') }}" class="nav-link ">
+                        <a href="{{ url('/admin/log') }}" class="nav-link ">
                             <span class="title">Log & Aktifitas</span>
                         </a>
                     </li>

@@ -21,11 +21,14 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if($user->role === "admin")
+        if($user->role === 0)
         {
             return redirect('/admin');
         }
-        else {
+        else if($user->role === 1){
+            return redirect('/dosen');
+        }
+        else if($user->role === 2){
             return redirect('/mahasiswa');
         }
 
