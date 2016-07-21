@@ -48,3 +48,4 @@ Route::post('/admin/enroll/deleteUserCourse', 'Admin\EnrollController@deleteUser
 //lecturer
 Route::get('/dosen', 'Dosen\DosenController@index')->middleware(['auth']);
 Route::get('/dosen/outline', 'Dosen\DosenController@outline')->middleware(['auth']);
+Route::get('/dosen/materi', 'Dosen\DosenController@materi')->middleware(['auth']);
