@@ -108,12 +108,11 @@
               </a>
               <ul class="sub-menu">
                   <?php
-                  $courses = array("Pemrograman Internet", "Basis Data", "Sistem Terdistribusi");
-                  foreach ($courses as $data):
+                  foreach ($userCourses as $data):
                   ?>
                   <li class="nav-item">
                       <a href="javascript:;" class="nav-link nav-toggle">
-                          <i class="icon-notebook"></i><?php echo "$data"; ?>
+                          <i class="icon-notebook"></i><?php echo "$data->code"." - ".$data->name; ?>
                           <span class="arrow"></span>
                       </a>
                       <ul class="sub-menu">
@@ -122,7 +121,7 @@
                                   <i class="icon-speedometer"></i> Beranda </a>
                           </li>
                           <li class="nav-item">
-                              <a href="index.php?page=courseoutline" class="nav-link">
+                              <a href="{{ url('dosen/outline') }}" class="nav-link">
                                   <i class="icon-vector"></i> Outline Mata Kuliah </a>
                           </li>
                           <li class="nav-item">
@@ -156,7 +155,7 @@
                       </a>
                   </li>
                   <li class="nav-item ">
-                      <a href="index.php?page=logout" class="nav-link ">
+                      <a href="{{ url('/logout') }}" class="nav-link ">
                           <i class="icon-key"></i>
                           Logout
                       </a>

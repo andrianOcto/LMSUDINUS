@@ -212,7 +212,7 @@
                       @include("layouts.dosen.widget")
                   </div>
 
-                
+
                 <!-- END CONTENT BODY -->
             </div>
 
