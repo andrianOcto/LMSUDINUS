@@ -47,5 +47,6 @@ Route::post('/admin/enroll/deleteUserCourse', 'Admin\EnrollController@deleteUser
 
 //lecturer
 Route::get('/dosen', 'Dosen\DosenController@index')->middleware(['auth']);
-Route::get('/dosen/outline', 'Dosen\DosenController@outline')->middleware(['auth']);
-Route::get('/dosen/materi', 'Dosen\DosenController@materi')->middleware(['auth']);
+Route::get('/dosen/outline/{id}', 'Dosen\DosenController@outline')->middleware(['auth']);
+Route::get('/dosen/newsection/{id}', 'Dosen\DosenController@createSection')->middleware(['auth']);
+Route::get('/dosen/materi/{id}', 'Dosen\DosenController@materi')->middleware(['auth']);

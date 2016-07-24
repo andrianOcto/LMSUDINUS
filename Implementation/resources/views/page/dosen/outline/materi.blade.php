@@ -5,8 +5,8 @@
 @endsection
 
 @section('cssHeader')
-<script src="../template/assets/global/scripts/jquery.min.js" type="text/javascript"></script>
-<link href="../template/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+<script src="{{ URL::asset('template/assets/global/scripts/jquery.min.js') }}" type="text/javascript"></script>
+<link href="{{ URL::asset('template/assets/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('body')
@@ -29,8 +29,8 @@
                 <!-- BEGIN PAGE TITLE -->
 
                 <div class="page-title">
-                  <h1>Pemrograman Internet
-                    <small>Form Tambah Materi Mata Kuliah Pemrograman Internet</small>
+                  <h1>{{$course->name}}
+                    <small>Form Tambah Materi Mata Kuliah {{$course->name}}</small>
                   </h1>
                 </div>
                 <!-- END PAGE TITLE -->
@@ -845,19 +845,19 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-<script src="../template/assets/global/scripts/datatable.min.js" type="text/javascript"></script>
-<script src="../template/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
-<script src="../template/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/scripts/datatable.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
 <!-- load angular stuff -->
 <script src="{{ URL::asset('bower_components/angular/angular.min.js')}}" type="text/javascript"></script>
-<script src="../template/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
-<script src="../template/assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js')}}" type="text/javascript"></script>
 
 <!-- Controller javascript -->
 <script src="{{ URL::asset('js/admin/user/app.js')}}" type="text/javascript"></script>
 <script src="{{ URL::asset('js/admin/dirDatatable.js')}}" type="text/javascript"></script>
-<script src="../template/assets/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/bootstrap-toastr/toastr.min.js')}}" type="text/javascript"></script>
 
-<script src="../template/assets/pages/scripts/ui-toastr.min.js" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/pages/scripts/ui-toastr.min.js')}}" type="text/javascript"></script>
 
 @endsection

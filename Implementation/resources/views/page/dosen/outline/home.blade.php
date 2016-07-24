@@ -5,8 +5,8 @@
 @endsection
 
 @section('cssHeader')
-<script src="../template/assets/global/scripts/jquery.min.js" type="text/javascript"></script>
-<link href="../template/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+<script src="{{ URL::asset('template/assets/global/scripts/jquery.min.js') }}" type="text/javascript"></script>
+<link href="{{ URL::asset('template/assets/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('body')
@@ -30,7 +30,7 @@
 
                 <div class="page-title">
             			<h1>Outline Mata Kuliah
-            				<small>Outline Mata Kuliah Pemrograman Internet</small>
+            				<small>Outline Mata Kuliah {{$course->name}}</small>
             			</h1>
             		</div>
                 <!-- END PAGE TITLE -->
@@ -52,7 +52,7 @@
               		<div class="col-md-8">
               			<div class="portlet light bordered">
               				<div class="portlet-title">
-              					<div class="caption"> <i class="fa fa-gift"></i>Mata Kuliah Pemrograman Internet</div>
+              					<div class="caption"> <i class="fa fa-gift"></i>Mata Kuliah {{$course->name}}</div>
               					<div class="actions">
               						<a href="#topic_form" data-toggle="modal" class="btn btn-default btn-sm">
               							<i class="fa fa-plus"></i> Tambah Topik </a>
@@ -65,24 +65,25 @@
                                       </div>
                                       <div class="modal-body">
                                         <div class="row">
-                                            <form role="form" style="padding: 0px 10px;">
+                                            <form role="form" action="{{ url('dosen/newsection') }}/{{$course->id}}" style="padding: 0px 10px;">
                                                 <div class="form-body" style="margin:0px; padding:0px;">
                                                     <div class="form-group form-md-line-input form-md-floating-label">
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" class="form-control" name="judul" id="judul">
                                                         <label for="form_control_1">Judul Topik</label>
                                                     </div>
                                                     <div class="form-group form-md-line-input form-md-floating-label">
-                                                        <textarea class="form-control" rows="3"></textarea>
+                                                        <textarea class="form-control" rows="3" name="description" id="description"></textarea>
                                                         <label for="form_control_1">Deskripsi Topik</label>
                                                     </div>
                                                 </div>
-                                            </form>
+
                                         </div>
                                       </div>
                                       <div class="modal-footer">
                                           <button type="button" data-dismiss="modal" class="btn yellow">Tutup</button>
-                                          <button type="button" class="btn green">Posting</button>
+                                          <button type="submit" class="btn green">Posting</button>
                                       </div>
+                                        </form>
                                   </div>
                               </div>
                           </div>
@@ -92,7 +93,7 @@
               					<div style="display: block;" class="mt-element-list portlet portlet-sortable box green">
               						<div class="portlet-title ui-sortable-handle mt-list-head list-default" style="padding-top: 3px; padding-bottom: 3px;">
               								<div class="caption">
-              									<i class="fa fa-gift"></i>Konsep Pemrograman Berbasis Web</div>
+              									<i class="fa fa-gift"></i>Konsep {{$course->name}}</div>
               								<div class="actions">
               									<div class="btn-group">
               										<a aria-expanded="false" class="btn btn-sm btn-default" href="javascript:;" data-toggle="dropdown">
@@ -101,7 +102,7 @@
               										</a>
               										<ul class="dropdown-menu pull-right">
               											<li>
-              												<a href="?page=formmaterial"> <i class="fa fa-pencil"></i> Materi Teks </a>
+              												<a href="{{ url('dosen/materi') }}/{{$course->id}}"> <i class="fa fa-pencil"></i> Materi Teks </a>
               											</li>
               											<li>
               												<a href="?page=formmaterial"> <i class="fa fa-upload"></i> Upload File </a>
@@ -120,7 +121,7 @@
               								</div>
               						</div>
               						<div class="portlet-body mt-list-container list-default ext-1" style="padding: 10px;">
-              						<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis. eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis. </p>
+              						<p>{{$course->description}}</p>
               						<ul>
               							<li class="mt-list-item done">
               									<div class="list-icon-container">
@@ -935,19 +936,19 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-<script src="../template/assets/global/scripts/datatable.min.js" type="text/javascript"></script>
-<script src="../template/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
-<script src="../template/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/scripts/datatable.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
 <!-- load angular stuff -->
 <script src="{{ URL::asset('bower_components/angular/angular.min.js')}}" type="text/javascript"></script>
-<script src="../template/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
-<script src="../template/assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js')}}" type="text/javascript"></script>
 
 <!-- Controller javascript -->
 <script src="{{ URL::asset('js/admin/user/app.js')}}" type="text/javascript"></script>
 <script src="{{ URL::asset('js/admin/dirDatatable.js')}}" type="text/javascript"></script>
-<script src="../template/assets/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/bootstrap-toastr/toastr.min.js')}}" type="text/javascript"></script>
 
-<script src="../template/assets/pages/scripts/ui-toastr.min.js" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/pages/scripts/ui-toastr.min.js')}}" type="text/javascript"></script>
 
 @endsection

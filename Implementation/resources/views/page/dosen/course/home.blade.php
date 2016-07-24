@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('cssHeader')
-<script src="../template/assets/global/scripts/jquery.min.js" type="text/javascript"></script>
-<link href="../template/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+<script src="{{ URL::asset('template/assets/global/scripts/jquery.min.js') }}" type="text/javascript"></script>
+<link href="{{ URL::asset('template/assets/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('body')
 <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo" ng-app="LMS" ng-controller="UserController">

@@ -121,11 +121,11 @@
                                   <i class="icon-speedometer"></i> Beranda </a>
                           </li>
                           <li class="nav-item">
-                              <a href="{{ url('dosen/outline/') }}" class="nav-link">
+                              <a href="{{ url('dosen/outline') }}<?php echo '/'.$data->id; ?>" class="nav-link">
                                   <i class="icon-vector"></i> Outline Mata Kuliah </a>
                           </li>
                           <li class="nav-item">
-                              <a href="{{ url('dosen/materi/') }}" class="nav-link">
+                              <a href="{{ url('dosen/materi') }}<?php echo '/'.$data->id; ?>" class="nav-link">
                                   <i class="icon-layers"></i> Materi Perkuliahan </a>
                           </li>
                           <li class="nav-item">

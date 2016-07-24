@@ -22,7 +22,6 @@
       <!-- BEGIN THEME GLOBAL STYLES -->
       <link href="{{ URL::asset('template/assets/global/css/components.min.css') }}" rel="stylesheet" id="style_components" type="text/css" />
       <link href="{{ URL::asset('template/assets/global/css/plugins.min.css') }}" rel="stylesheet" type="text/css" />
-      <link href="{{ URL::asset('template/assets/pages/css/profile.min.css') }}" rel="stylesheet" type="text/css" />
       <!-- END THEME GLOBAL STYLES -->
       <!-- BEGIN THEME LAYOUT STYLES -->
       <link href="{{ URL::asset('template/assets/layouts/layout4/css/layout.min.css') }}" rel="stylesheet" type="text/css" />

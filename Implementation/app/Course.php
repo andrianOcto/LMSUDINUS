@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+
+  public function sections(){
+    return $this->hasMany('App\Course');
+  }
+
   public function user_create(){
     return $this->belongsTo('App\User','creator_id');
   }
