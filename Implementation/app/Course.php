@@ -8,7 +8,7 @@ class Course extends Model
 {
 
   public function sections(){
-    return $this->hasMany('App\Course');
+    return $this->hasMany('App\Section');
   }
 
   public function user_create(){

@@ -123,81 +123,24 @@
               						<div class="portlet-body mt-list-container list-default ext-1" style="padding: 10px;">
               						<p>{{$course->description}}</p>
               						<ul>
+
+                            @foreach ($sections as $section)
               							<li class="mt-list-item done">
               									<div class="list-icon-container">
               											<a href="javascript:;">
               													<i class="icon-check"></i>
               											</a>
               									</div>
-              									<div class="list-datetime"> 11am
-              											<br> 8 Nov </div>
+              									<div class="list-datetime"> <?php $date = strtotime($section->created_at); echo date('H', $date);?>
+              											<br> <?php $date = strtotime($section->created_at); echo date('d M', $date);?> </div>
               									<div class="list-item-content">
               											<h3 class="uppercase">
-              													<a href="javascript:;"><i class="fa fa-slideshare"></i> Concept Proof</a>
+              													<a href="javascript:;"><i class="fa fa-slideshare"></i> {{$section->title}}</a>
               											</h3>
-              											<p>Lorem ipsum dolor sit amet</p>
+              											<p>{{$section->description}}</p>
               									</div>
               							</li>
-              							<li class="mt-list-item">
-              									<div class="list-icon-container">
-              											<a href="javascript:;">
-              													<i class="icon-close"></i>
-              											</a>
-              									</div>
-              									<div class="list-datetime"> 11am
-              											<br> 8 Nov </div>
-              									<div class="list-item-content">
-              											<h3 class="uppercase">
-              													<a href="javascript:;"><i class="fa fa-leanpub"></i> Listings Feature</a>
-              											</h3>
-              											<p>Lorem ipsum dolor sit amet</p>
-              									</div>
-              							</li>
-              							<li class="mt-list-item">
-              									<div class="list-icon-container">
-              											<a href="javascript:;">
-              													<i class="icon-close"></i>
-              											</a>
-              									</div>
-              									<div class="list-datetime"> 11am
-              											<br> 8 Nov </div>
-              									<div class="list-item-content">
-              											<h3 class="uppercase">
-              													<a href="javascript:;"><i class="fa fa-stack-exchange"></i> Listings Feature</a>
-              											</h3>
-              											<p>Lorem ipsum dolor sit amet</p>
-              									</div>
-              							</li>
-              							<li class="mt-list-item done">
-              									<div class="list-icon-container">
-              											<a href="javascript:;">
-              													<i class="icon-check"></i>
-              											</a>
-              									</div>
-              									<div class="list-datetime"> 11am
-              											<br> 8 Nov </div>
-              									<div class="list-item-content">
-              											<h3 class="uppercase">
-              													<a href="javascript:;"><i class="fa fa-youtube-play"></i> Listings Feature</a>
-              											</h3>
-              											<p>Lorem ipsum dolor sit amet</p>
-              									</div>
-              							</li>
-              							<li class="mt-list-item">
-              									<div class="list-icon-container">
-              											<a href="javascript:;">
-              													<i class="icon-close"></i>
-              											</a>
-              									</div>
-              									<div class="list-datetime"> 11am
-              											<br> 8 Nov </div>
-              									<div class="list-item-content">
-              											<h3 class="uppercase">
-              													<a href="javascript:;"><i class="fa fa-trello"></i>Listings Feature</a>
-              											</h3>
-              											<p>Lorem ipsum dolor sit amet</p>
-              									</div>
-              							</li>
+                            @endforeach
               					</ul>
               						</div>
 

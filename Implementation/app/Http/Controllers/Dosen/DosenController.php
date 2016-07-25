@@ -38,9 +38,11 @@ class DosenController extends Controller
 
     $userCourses = User::find($user->id)->courses;
     $course      = Course::find($id);
+    $section     = Course::find($id)->sections;
 
     return view('page/dosen/outline/home')->with("userCourses",$userCourses)
-                                          ->with("course",$course);
+                                          ->with("course",$course)
+                                          ->with("sections",$section);
   }
 
   public function materi($id){
