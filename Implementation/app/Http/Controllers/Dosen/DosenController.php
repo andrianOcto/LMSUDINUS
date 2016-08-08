@@ -74,7 +74,8 @@ class DosenController extends Controller
     $title        = $request->input('judul');
     $description  = $request->input('description');
 
-    $course      = Course::find($id);
+    $course         = Course::find($id);
+    $sectionCourse  = Course::find($id)->sections;
 
     $section     = new Section;
     $section->title = $title;
@@ -84,6 +85,7 @@ class DosenController extends Controller
     $course->sections()->save($section);
 
     return view('page/dosen/outline/home')->with("userCourses",$userCourses)
-                                          ->with("course",$course);
+                                          ->with("course",$course)
+                                          ->with("sections",$sectionCourse);
   }
 }
