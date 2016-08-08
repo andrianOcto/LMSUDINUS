@@ -55,7 +55,8 @@
                         <div class="caption"> <i class="fa fa-gift"></i>Tambah Materi Mata Kuliah</div>
                       </div>
                       <div style="display: block;" class="portlet-body">
-                        <form role="form">
+                        <form role="form" method="post" action="{{ url('dosen/newmateri') }}/{{$course->id}}">
+                          {{ csrf_field() }}
                           <div class="form-body">
                               <div class="form-group">
                                   <label>Judul Materi</label>
@@ -63,15 +64,15 @@
                                       <span class="input-group-addon">
                                           <i class="fa fa-edit"></i>
                                       </span>
-                                  <input class="form-control" placeholder="Judul Materi" type="text"> </div>
+                                  <input class="form-control" placeholder="Judul Materi" name="judul" id="judul" type="text"> </div>
                               </div>
                               <div class="form-group">
                                   <label>Deskripsi / Teks Materi</label>
-                                  <textarea class="form-control" rows="3"></textarea>
+                                  <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3"></textarea>
                               </div>
                               <div class="form-group">
                                   <label for="exampleInputFile1">Upload File</label>
-                                  <input id="exampleInputFile1" type="file">
+                                  <input id="exampleInputFile1" type="file" name="fileMateri" id="fileMateri">
                                   <p class="help-block"> file materi anda di sini (ppt/x, pdf, doc/x, txt, jpg). </p>
                               </div>
                               <div class="form-group">
@@ -80,7 +81,7 @@
                                       <span class="input-group-addon">
                                           <i class="fa fa-link"></i>
                                       </span>
-                                  <input class="form-control" placeholder="URL Link" type="text"> </div>
+                                  <input class="form-control" placeholder="URL Link" name="url" id="url" type="text"> </div>
                               </div>
                               <div class="row">
                                 <div class="col-md-6">
@@ -90,7 +91,7 @@
                                           <span class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                           </span>
-                                      <input class="form-control" placeholder="dd/mm/yyyy" type="text"> </div>
+                                      <input class="form-control" placeholder="dd/mm/yyyy" name="dateFrom" id="dateFrom" type="text"> </div>
                                       <p class="help-block"> jika dikosongkan, materi langsung dapat diakses </p>
                                   </div>
                                 </div>
@@ -101,7 +102,7 @@
                                           <span class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                           </span>
-                                      <input class="form-control" placeholder="dd/mm/yyyy" type="text"> </div>
+                                      <input class="form-control" placeholder="dd/mm/yyyy" name="dateUntil" id="dateUntil" type="text"> </div>
                                       <p class="help-block"> jika dikosongkan, materi dapat diakses kapanpun </p>
                                   </div>
                                 </div>
