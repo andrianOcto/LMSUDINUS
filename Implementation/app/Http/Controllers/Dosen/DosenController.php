@@ -50,7 +50,7 @@ class DosenController extends Controller
                                           ->with("sections",$section);
   }
 
-  public function materi($id,$type){
+  public function materi($id,$type,$section){
     $user   = Auth::user();
 
     $userLog = new UserLog;
@@ -63,7 +63,8 @@ class DosenController extends Controller
 
     return view('page/dosen/outline/materi')->with("userCourses",$userCourses)
                                             ->with("course",$course)
-                                            ->with("type",$type);
+                                            ->with("type",$type)
+                                            ->with("section",$section);
   }
 
   public function createSection(Request $request,$id){
@@ -107,7 +108,7 @@ class DosenController extends Controller
 
     DB::beginTransaction();
     $content     = new Content;
-    $content->section_id     = 0;
+    $content->section_id     = $request->input('sectionID');;
     $content->post_id        = 0;
     $content->title          = $request->input('judul');
     $content->description    = $request->input('deskripsi');

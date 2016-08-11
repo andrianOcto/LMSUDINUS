@@ -63,6 +63,7 @@
                         <form role="form" method="post" action="{{ url('dosen/newmateri') }}/{{$course->id}}" enctype="multipart/form-data">
                           {{ csrf_field() }}
                           <input type="hidden" name="type" id="type" value="{{$type}}">
+                          <input type="hidden" name="sectionID" id="sectionID" value="{{$section}}">
                           <div class="form-body">
                               <div class="form-group">
                                   <label>Judul Materi</label>
