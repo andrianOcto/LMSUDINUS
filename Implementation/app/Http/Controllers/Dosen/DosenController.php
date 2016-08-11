@@ -13,6 +13,9 @@ use App\Section;
 use App\Content;
 use App\Materi;
 use Auth;
+use DB;
+use Storage;
+use File;
 
 class DosenController extends Controller
 {
@@ -94,6 +97,7 @@ class DosenController extends Controller
 
   public function createMateri(Request $request,$id){
 
+    $type = $request->input('type');
     $user   = Auth::user();
 
     $userLog = new UserLog;
@@ -114,13 +118,24 @@ class DosenController extends Controller
 
     $materi   = new Materi;
     $materi->content_id = 0;
-    $materi->filename   = $request->input('fileMateri');
-    $materi->url   = $request->input('url');
+
+    //upload materi
+    if($type == 1){
+
+      $file = $request->file('fileMateri');
+      $extension = $file->getClientOriginalExtension();
+      Storage::disk('local')->put($file->getClientOriginalName().'.'.$extension,  File::get($file));
+      $materi->filename   = $file->getFilename().'.'.$extension;
+      $materi->type = "1";
+    }
+    else if($type==2){
+      $materi->url   = $request->input('url');
+      $materi->type = "2";
+    }
 
     $materi->save();
 
     $userCourses = User::find($user->id)->courses;
-
 
     $course         = Course::find($id);
     $sectionCourse  = Course::find($id)->sections;

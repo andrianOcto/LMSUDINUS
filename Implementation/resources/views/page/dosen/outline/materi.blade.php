@@ -60,8 +60,9 @@
                         <div class="caption"> <i class="fa fa-gift"></i>Tambah Materi Mata Kuliah</div>
                       </div>
                       <div style="display: block;" class="portlet-body">
-                        <form role="form" method="post" action="{{ url('dosen/newmateri') }}/{{$course->id}}">
+                        <form role="form" method="post" action="{{ url('dosen/newmateri') }}/{{$course->id}}" enctype="multipart/form-data">
                           {{ csrf_field() }}
+                          <input type="hidden" name="type" id="type" value="{{$type}}">
                           <div class="form-body">
                               <div class="form-group">
                                   <label>Judul Materi</label>
@@ -77,8 +78,8 @@
                               </div>
                               @if($type == 1)
                               <div class="form-group">
-                                  <label for="exampleInputFile1">Upload File</label>
-                                  <input id="exampleInputFile1" type="file" name="fileMateri" id="fileMateri">
+                                  <label for="fileMateri">Upload File</label>
+                                  <input type="file" name="fileMateri" id="fileMateri">
                                   <p class="help-block"> file materi anda di sini (ppt/x, pdf, doc/x, txt, jpg). </p>
                               </div>
                               @endif
