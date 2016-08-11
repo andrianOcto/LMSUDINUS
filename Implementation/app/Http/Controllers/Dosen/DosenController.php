@@ -47,7 +47,7 @@ class DosenController extends Controller
                                           ->with("sections",$section);
   }
 
-  public function materi($id){
+  public function materi($id,$type){
     $user   = Auth::user();
 
     $userLog = new UserLog;
@@ -59,7 +59,8 @@ class DosenController extends Controller
     $course      = Course::find($id);
 
     return view('page/dosen/outline/materi')->with("userCourses",$userCourses)
-                                            ->with("course",$course);
+                                            ->with("course",$course)
+                                            ->with("type",$type);
   }
 
   public function createSection(Request $request,$id){
@@ -100,6 +101,7 @@ class DosenController extends Controller
     $userLog->activity= $user->name." Create materi";
     $userLog->save();
 
+    DB::beginTransaction();
     $content     = new Content;
     $content->section_id     = 0;
     $content->post_id        = 0;
@@ -123,10 +125,11 @@ class DosenController extends Controller
     $course         = Course::find($id);
     $sectionCourse  = Course::find($id)->sections;
 
-
+    DB::commit();
     return view('page/dosen/outline/home')->with("userCourses",$userCourses)
                                           ->with("course",$course)
-                                          ->with("sections",$sectionCourse);
+                                          ->with("sections",$sectionCourse)
+                                          ;
   }
 
 }

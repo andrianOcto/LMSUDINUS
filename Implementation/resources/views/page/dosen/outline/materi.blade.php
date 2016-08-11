@@ -7,6 +7,11 @@
 @section('cssHeader')
 <script src="{{ URL::asset('template/assets/global/scripts/jquery.min.js') }}" type="text/javascript"></script>
 <link href="{{ URL::asset('template/assets/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('template/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('template/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('template/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('template/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('template/assets/global/plugins/clockface/css/clockface.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('body')
@@ -70,11 +75,14 @@
                                   <label>Deskripsi / Teks Materi</label>
                                   <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3"></textarea>
                               </div>
+                              @if($type == 1)
                               <div class="form-group">
                                   <label for="exampleInputFile1">Upload File</label>
                                   <input id="exampleInputFile1" type="file" name="fileMateri" id="fileMateri">
                                   <p class="help-block"> file materi anda di sini (ppt/x, pdf, doc/x, txt, jpg). </p>
                               </div>
+                              @endif
+                              @if($type == 2)
                               <div class="form-group">
                                   <label>Tautan Eksternal</label>
                                   <div class="input-group">
@@ -83,6 +91,8 @@
                                       </span>
                                   <input class="form-control" placeholder="URL Link" name="url" id="url" type="text"> </div>
                               </div>
+                              @endif
+
                               <div class="row">
                                 <div class="col-md-6">
                                   <div class="form-group">
@@ -850,13 +860,18 @@
 <script src="{{ URL::asset('template/assets/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
 <script src="{{ URL::asset('template/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
 <!-- load angular stuff -->
-<script src="{{ URL::asset('bower_components/angular/angular.min.js')}}" type="text/javascript"></script>
-<script src="{{ URL::asset('template/assets/global/plugins/angularjs/plugins/ui-bootstrap-tpls.min.js')}}" type="text/javascript"></script>
-<script src="{{ URL::asset('template/assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js')}}" type="text/javascript"></script>
 
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{{ URL::asset('template/assets/global/plugins/moment.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/plugins/clockface/js/clockface.js')}}" type="text/javascript"></script>
 <!-- Controller javascript -->
-<script src="{{ URL::asset('js/admin/user/app.js')}}" type="text/javascript"></script>
-<script src="{{ URL::asset('js/admin/dirDatatable.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('template/assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
+
+
 <script src="{{ URL::asset('template/assets/global/plugins/bootstrap-toastr/toastr.min.js')}}" type="text/javascript"></script>
 
 <script src="{{ URL::asset('template/assets/pages/scripts/ui-toastr.min.js')}}" type="text/javascript"></script>

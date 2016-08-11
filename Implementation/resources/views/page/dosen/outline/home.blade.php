@@ -102,17 +102,17 @@
               										</a>
               										<ul class="dropdown-menu pull-right">
               											<li>
-              												<a href="{{ url('dosen/materi') }}/{{$course->id}}"> <i class="fa fa-pencil"></i> Materi Teks </a>
+              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/0"> <i class="fa fa-pencil"></i> Materi Teks </a>
               											</li>
               											<li>
-              												<a href="?page=formmaterial"> <i class="fa fa-upload"></i> Upload File </a>
+              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/1"> <i class="fa fa-upload"></i> Upload File </a>
               											</li>
               											<li>
-              												<a href="?page=formmaterial"> <i class="fa fa-link"></i> Materi Link </a>
+              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/2"> <i class="fa fa-link"></i> Materi Link </a>
               											</li>
               											<li class="divider"> </li>
               											<li>
-              												<a href="?page=formassignment"> <i class="fa fa-question"></i> Penugasan </a>
+              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/3"> <i class="fa fa-question"></i> Penugasan </a>
               											</li>
               										</ul>
               									</div>
