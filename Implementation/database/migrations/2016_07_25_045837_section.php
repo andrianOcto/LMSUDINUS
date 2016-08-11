@@ -13,6 +13,7 @@ class Section extends Migration
     public function up()
     {
       Schema::create('section', function (Blueprint $table) {
+      $table->increments('id');
       $table->integer('course_id')->unsigned();
       $table->char('title',45);
       $table->string('description');

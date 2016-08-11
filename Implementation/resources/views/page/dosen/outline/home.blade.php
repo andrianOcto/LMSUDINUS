@@ -102,17 +102,17 @@
               										</a>
               										<ul class="dropdown-menu pull-right">
               											<li>
-              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/0"> <i class="fa fa-pencil"></i> Materi Teks </a>
+              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/0/@{{sectionID}}"> <i class="fa fa-pencil"></i> Materi Teks </a>
               											</li>
               											<li>
-              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/1"> <i class="fa fa-upload"></i> Upload File </a>
+              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/1/@{{sectionID}}"> <i class="fa fa-upload"></i> Upload File </a>
               											</li>
               											<li>
-              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/2"> <i class="fa fa-link"></i> Materi Link </a>
+              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/2/@{{sectionID}}"> <i class="fa fa-link"></i> Materi Link </a>
               											</li>
               											<li class="divider"> </li>
               											<li>
-              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/3"> <i class="fa fa-question"></i> Penugasan </a>
+              												<a href="{{ url('dosen/materi') }}/{{$course->id}}/3/@{{sectionID}}"> <i class="fa fa-question"></i> Penugasan </a>
               											</li>
               										</ul>
               									</div>
@@ -125,7 +125,7 @@
               						<ul>
 
                             @foreach ($sections as $section)
-              							<li class="mt-list-item done">
+              							<li class="mt-list-item" ng-click="updateVal({{$section->id}})">
               									<div class="list-icon-container">
               											<a href="javascript:;">
               													<i class="icon-check"></i>
@@ -888,8 +888,7 @@
 <script src="{{ URL::asset('template/assets/global/plugins/angularjs/plugins/ocLazyLoad.min.js')}}" type="text/javascript"></script>
 
 <!-- Controller javascript -->
-<script src="{{ URL::asset('js/admin/user/app.js')}}" type="text/javascript"></script>
-<script src="{{ URL::asset('js/admin/dirDatatable.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('js/dosen/outline/app.js')}}" type="text/javascript"></script>
 <script src="{{ URL::asset('template/assets/global/plugins/bootstrap-toastr/toastr.min.js')}}" type="text/javascript"></script>
 
 <script src="{{ URL::asset('template/assets/pages/scripts/ui-toastr.min.js')}}" type="text/javascript"></script>
