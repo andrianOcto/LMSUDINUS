@@ -91,7 +91,7 @@ class DosenController extends Controller
 
     $course->sections()->save($section);
 
-    return view('page/dosen/outline/home')->with("userCourses",$userCourses)
+    return redirect('/dosen/outline/'.$section->id)->with("userCourses",$userCourses)
                                           ->with("course",$course)
                                           ->with("sections",$sectionCourse);
   }
@@ -120,7 +120,12 @@ class DosenController extends Controller
     $materi   = new Materi;
     $materi->content_id = 0;
 
-    //upload materi
+    //upload materi text
+    if($type == 0)
+    {
+      $materi->type = "0";
+    }
+    //upload materi file
     if($type == 1){
 
       $file = $request->file('fileMateri');
@@ -129,6 +134,7 @@ class DosenController extends Controller
       $materi->filename   = $file->getFilename().'.'.$extension;
       $materi->type = "1";
     }
+    //upload url
     else if($type==2){
       $materi->url   = $request->input('url');
       $materi->type = "2";
@@ -142,10 +148,9 @@ class DosenController extends Controller
     $sectionCourse  = Course::find($id)->sections;
 
     DB::commit();
-    return view('page/dosen/outline/home')->with("userCourses",$userCourses)
+    return redirect('page/dosen/outline/home')->with("userCourses",$userCourses)
                                           ->with("course",$course)
-                                          ->with("sections",$sectionCourse)
-                                          ;
+                                          ->with("sections",$sectionCourse);
   }
 
 }

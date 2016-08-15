@@ -7,6 +7,7 @@
 @section('cssHeader')
 <script src="{{ URL::asset('template/assets/global/scripts/jquery.min.js') }}" type="text/javascript"></script>
 <link href="{{ URL::asset('template/assets/global/plugins/bootstrap-toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('template/assets/pages/css/profile.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('body')

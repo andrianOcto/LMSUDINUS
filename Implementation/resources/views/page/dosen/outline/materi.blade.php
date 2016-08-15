@@ -12,6 +12,7 @@
 <link href="{{ URL::asset('template/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ URL::asset('template/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ URL::asset('template/assets/global/plugins/clockface/css/clockface.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ URL::asset('template/assets/pages/css/profile.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('body')
